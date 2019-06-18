@@ -1,0 +1,37 @@
+{
+	"name": "origami-diagram",
+	"version": "0.1.0",
+	"description": "origami diagram page layout, using FOLD format",
+	"main": "./origami-diagram.js",
+  "scripts": {
+    "test": "node tests/tests.js"
+  },
+	"license": "MIT",
+	"author": {
+		"name": "Robby Kraft",
+		"email": "robbykraft@gmail.com",
+		"url": "https://github.com/robbykraft"
+	},
+	"keywords": [
+		"origami",
+		"design",
+		"folding",
+		"art"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/robbykraft/origami-digrams.git"
+	},
+	"homepage": "https://github.com/robbykraft/origami-digrams",
+	"bugs": {
+		"url": "https://github.com/robbykraft/origami-digrams/issues"
+	},
+	"devDependencies": {
+		"eslint": "^5.16.0",
+		"eslint-config-airbnb-base": "^13.1.0",
+		"eslint-plugin-import": "^2.17.3",
+		"rollup": "^1.12.4",
+		"rollup-plugin-cleanup": "^3.1.1",
+		"rollup-plugin-string": "^3.0.0"
+	}
+}
