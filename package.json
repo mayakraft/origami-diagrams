@@ -26,6 +26,9 @@
 	"bugs": {
 		"url": "https://github.com/robbykraft/origami-digrams/issues"
 	},
+	"dependencies": {
+		"xmldom": "^0.1.27"
+	},
 	"devDependencies": {
 		"eslint": "^5.16.0",
 		"eslint-config-airbnb-base": "^13.1.0",

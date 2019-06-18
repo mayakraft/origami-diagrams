@@ -10,89 +10,120 @@
     "frame_attributes": ["2D"],
     "frame_classes": ["creasePattern"],
     "frame_unit": "",
-    "frame_re:diagramStep": "1",
-    "file_frames": [],
     "vertices_coords": [[0,0],[1,0],[1,1],[0,1]],
     "vertices_vertices": [[1,3],[2,0],[3,1],[0,2]],
     "vertices_faces": [[0],[0],[0],[0]],
     "edges_vertices": [[0,1],[1,2],[2,3],[3,0]],
     "edges_faces": [[0],[0],[0],[0]],
-    "edges_assignment": ["B","B","B","B"],
+    "edges_assignment": ["B", "B", "B", "B"],
     "edges_foldAngle": [0,0,0,0],
     "edges_length": [1,1,1,1],
     "faces_vertices": [[0,1,2,3]],
-    "faces_edges": [[0,1,2,3]]
-  },
-  {
-    "frame_description": "",
-    "frame_attributes": ["2D"],
-    "frame_classes": ["creasePattern", "diagram"],
-    "frame_unit": "",
-    "frame_re:diagramStep": "2",
-    "frame_re:foldedForm": [{
+    "faces_edges": [[0,1,2,3]],
+    "re:diagrams": [{
+      "re:diagram_lines": [{
+        "re:diagram_line_classes": ["valley"],
+        "re:diagram_line_coords": [[0.5,0], [1,0.5]]
+      }],
+      "re:diagram_arrows":[
+        {
+          "re:diagram_arrow_classes": [],
+          "re:diagram_arrow_coords": [[1,0],[0.5,0.5]]
+        }
+      ],
+      "re:diagram_instructions": {
+        "en": "valley fold"
+      }
+    }]
+  },{
+    "file_frames": [{
       "vertices_coords": [[0,0],[0.5,0.5],[1,1],[0,1],[0.5,0],[1,0.5]],
       "frame_classes": ["foldedForm"],
       "frame_inherit": true,
       "frame_parent": 0,
-      "faces_re:matrix": [[1,0,0,1,0,0],[0,1,1,0,0.5,-0.5]]
+      "faces_re:matrix": [[1,-0,0,1,0,0],[-0,1.0,1.0,0,0.5,-0.5]]
     }],
+    "frame_description": "",
+    "frame_attributes": ["2D"],
+    "frame_classes": ["creasePattern"],
+    "frame_unit": "",
     "vertices_coords": [[0,0],[1,0],[1,1],[0,1],[0.5,0],[1,0.5]],
     "vertices_vertices": [[4,3],[5,4],[3,5],[0,2],[0,1,5],[1,2,4]],
     "vertices_faces": [[0],[1],[0],[0],[0,1],[0,1]],
     "edges_vertices": [[2,3],[0,3],[0,4],[1,4],[1,5],[2,5],[4,5]],
     "edges_faces": [[0],[0],[0],[1],[1],[0],[0,1]],
-    "edges_assignment": ["B","B","B","B","B","B","V"],
+    "edges_assignment": ["B", "B", "B", "B", "B", "B", "V"],
     "edges_foldAngle": [0,0,0,0,0,0,180],
-    "edges_length": [1,1,0.5,0.5,0.5,0.5,0.707106781186548],
+    "edges_length": [1,1,0.5,0.5,0.5,0.5,0.7125699656267469],
     "faces_vertices": [[5,2,3,0,4],[4,1,5]],
     "faces_edges": [[5,0,1,2,6],[3,4,6]],
+    "faces_faces": [],
     "faces_re:layer": [0,1],
+    "faces_re:to_move": [],
     "faces_re:preindex": [0,0],
     "faces_re:coloring": [true,false],
     "faces_re:creases": [],
-    "faces_re:center": [[0.5,0.5],[0.8302600402670434,0.16883225563715798]],
+    "faces_re:center": [[0.5,0.5],[0.8320456546160471,0.1679543577924054]],
     "faces_re:sidedness": [false,true],
     "re:construction": {
       "type": "fold",
       "assignment": "V",
-      "direction": [-0.707106781186548,0.707106781186548],
+      "direction": [-0.7071068073070398,0.7071067550660544],
       "edge": [[0.5,0],[1,0.5]]
-    }
-  },
-  {
+    },
+    "re:diagrams": [{
+      "re:diagram_lines": [{
+        "re:diagram_line_classes": ["valley"],
+        "re:diagram_line_coords": [[0,0.159383632425666],[0.8432934564877319,1]]
+      }],
+      "re:diagram_arrows": [{
+        "re:diagram_arrow_classes": [],
+        "re:diagram_arrow_coords": [[0,1],[0.8406206168691643,0.1593836324256661]]
+      }],
+      "re:diagram_instructions": {
+        "en": "valley fold"
+      }
+    }]
+  },{
+    "file_frames": [{
+      "vertices_coords": [[0,0],[0.5,0.5],[1,1],[0.840612118300984,0.156710806318168],[0.5,0],[1,0.5],[0.843293456487732,1],[0,0.159383632425666]],
+      "frame_classes":["foldedForm"],
+      "frame_inherit":true,
+      "frame_parent":0,
+      "faces_re:matrix":[[-0,1.0,1.0,0,0.5,-0.5],[1,-0,0,1,-0,0],[0,1.0,1.0,0,-0.15938282674944068,0.1598904090603922]]
+    }],
     "frame_description": "",
     "frame_attributes": ["2D"],
     "frame_classes": ["creasePattern"],
     "frame_unit": "",
-    "frame_re:diagramStep": "3",
-    "file_frames": [{
-      "vertices_coords": [[0,0],[0.5,0.5],[1,1],[0.866025403784439,0.133974596215561],[0.5,0],[1,0.5],[0.866025403784439,1],[0,0.133974596215561]],
-      "frame_classes": ["foldedForm"],
-      "frame_inherit": true,
-      "frame_parent": 0,
-      "faces_re:matrix": [[0,1,1,0,0.5,-0.5],[1,0,0,1,0,0],[0,1,1,0,-0.133974596215561,0.133974596215561]]
-    }],
-    "vertices_coords": [[0,0],[1,0],[1,1],[0,1],[0.5,0],[1,0.5],[0.866025403784439,1],[0,0.133974596215561]],
+    "vertices_coords": [[0,0],[1,0],[1,1],[0,1],[0.5,0],[1,0.5],[0.8432934564877317,1],[0,0.15938363242566583]],
     "vertices_vertices": [[4,7],[5,4],[6,5],[7,6],[0,1,5],[1,2,4],[2,3,7],[0,3,6]],
     "vertices_faces": [[1],[0],[1],[2],[1,0],[1,0],[1,2],[1,2]],
     "edges_vertices": [[0,4],[1,4],[1,5],[2,5],[4,5],[2,6],[3,6],[0,7],[3,7],[6,7]],
     "edges_faces": [[1],[0],[0],[1],[1,0],[1],[2],[1],[2],[1,2]],
-    "edges_assignment": ["B","B","B","B","V","B","B","B","B","V"],
+    "edges_assignment": ["B", "B", "B", "B", "V", "B", "B", "B", "B", "V"],
     "edges_foldAngle": [0,0,0,0,180,0,0,0,0,180],
-    "edges_length": [0.5,0.5,0.5,0.5,0.7182227093757813,0.13292679900261128,0.866025403784439,0.133974596215561,0.866025403784439,1.2243474032933361],
+    "edges_length" :[0.5,0.5,0.5,0.5,0.7125699656267469,0.15670654351226831,0.8432934564877317,0.15938363242566583,0.8406163675743341,1.1907055602410253],
     "faces_vertices": [[4,1,5],[7,0,4,5,2,6],[6,3,7]],
     "faces_edges": [[1,2,4],[7,0,4,3,5,9],[6,8,9]],
+    "faces_faces": [],
     "faces_re:layer": [1,0,2],
+    "faces_re:to_move": [],
     "faces_re:preindex": [1,0,0],
     "faces_re:coloring": [false,true,false],
-    "faces_re:creases": [[[1,0],[0.866025403784439,0.866025403784439]]],
-    "faces_re:center": [[0.8302600402670434,0.16883225563715798],[0.5596422202997532,0.4403472179888192],[0.2890244003324629,0.7118621803404803]],
+    "faces_re:creases": [[[1,0],[0.8299559326391812,0.8325991945701697]]],
+    "faces_re:center": [[0.8320456546160471,0.1679543577924054],[0.5565717367226455,0.443874450967147],[0.2810978188292439,0.7197945441418886]],
     "faces_re:sidedness": [false,false,true],
     "re:construction": {
-      "type": "fold",
-      "assignment": "V",
-      "direction": [0.707106781186548,-0.707106781186548],
-      "edge": [[0,0.133974596215561],[0.866025403784439,1]]
-    }
+      "type":"fold",
+      "assignment":"V",
+      "direction":[0.705981726837804,-0.7082300483396],
+      "edge":[[0,0.159383632425666],[0.8432934564877319,1]]
+    },
+    "re:diagrams": [{
+      "re:diagram_instructions": {
+        "en": "finished"
+      }
+    }]
   }]
 }
