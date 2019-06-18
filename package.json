@@ -1,7 +1,7 @@
 {
 	"name": "origami-diagram",
 	"version": "0.1.0",
-	"description": "origami diagram page layout, using FOLD format",
+	"description": "origami diagram builder using FOLD files and SVG, CSS, and HTML for rendering",
 	"main": "./origami-diagram.js",
 	"scripts": {
 		"test": "node tests/tests.js"
@@ -15,8 +15,11 @@
 	"keywords": [
 		"origami",
 		"design",
-		"folding",
-		"art"
+		"diagram",
+		"generator",
+		"book",
+		"layout",
+		"print"
 	],
 	"repository": {
 		"type": "git",
