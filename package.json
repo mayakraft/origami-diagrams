@@ -3,9 +3,9 @@
 	"version": "0.1.0",
 	"description": "origami diagram page layout, using FOLD format",
 	"main": "./origami-diagram.js",
-  "scripts": {
-    "test": "node tests/tests.js"
-  },
+	"scripts": {
+		"test": "node tests/tests.js"
+	},
 	"license": "MIT",
 	"author": {
 		"name": "Robby Kraft",
