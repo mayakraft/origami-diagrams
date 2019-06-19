@@ -6,16 +6,9 @@
 import FOLD_SVG from "../include/fold-svg";
 import { bounding_rect } from "./graph";
 
-const svgOptions = {
-  frame: 1,
-  padding: 0.15,
-  diagram: true,
-  inlineStyle: false,
-  shadows: false
-};
-
-const buildPage = function (fold_file, options) {
+const buildPage = function (fold, options) {
   // take care of options.shadows
+  const fold_file = JSON.parse(JSON.stringify(fold));
 
   // make SVGs of each step, including diagramming fold and arrows
   const steps = fold_file.file_frames.filter(frame => frame.frame_classes.includes("diagrams"));
@@ -50,17 +43,28 @@ const buildPage = function (fold_file, options) {
 
   // build SVGs, the sequence, and 2 for the header the CP and folded form
   const sequenceSVGs = steps
-    .map(cp => FOLD_SVG.toSVG(cp, Object.assign(svgOptions, {
-      diagram: true
-    })));
-  const cpSVG = FOLD_SVG.toSVG(finalCP, Object.assign(svgOptions, {
+    .map(cp => FOLD_SVG.toSVG(cp, {
+      inlineStyle: false,
+      diagram: true,
+      frame: 1,
+      padding: 0.15
+    }));
+  const cpSVG = FOLD_SVG.toSVG(finalCP, {
+    inlineStyle: false,
     diagram: false,
     padding: 0.02
-  }));
-  const finalSVG = FOLD_SVG.toSVG(finalFoldedForm, Object.assign(svgOptions, {
+  });
+  const finalSVG = FOLD_SVG.toSVG(finalFoldedForm, {
+    inlineStyle: false,
     diagram: false,
     padding: 0.02 + invVMax / 2
-  }));
+  });
+  finalFoldedForm.file_classes.push("copy");
+  const finalSVGCopy = FOLD_SVG.toSVG(finalFoldedForm, {
+    inlineStyle: false,
+    diagram: false,
+    padding: 0.02 + invVMax / 2
+  });
 
   // get the written instructions (in english)
   const writtenInstructions = sequenceSVGs
@@ -84,7 +88,7 @@ const buildPage = function (fold_file, options) {
 <head>
 <title>Rabbit Ear</title>
 <style>
-${options.pageStyle}
+${options.style}
 </style>
 </head>
 <body>
@@ -92,6 +96,7 @@ ${options.pageStyle}
     <div class="header">
       ${cpSVG}
       ${finalSVG}
+      ${finalSVGCopy}
       <h1 class="title">Origami</h1>
       <p class="author">by _____________</p>
       <p class="fold-time">fold time<br>${fold_time} ${(fold_time === 1 ? "minute" : "minutes")}</p>

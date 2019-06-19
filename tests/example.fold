@@ -6,6 +6,11 @@
   "file_classes": ["digrams"],
   "file_creator": "Rabbit Ear",
   "file_frames": [{
+    "file_frames": [{
+      "frame_classes": ["foldedForm"],
+      "frame_inherit": true,
+      "frame_parent": 0
+    }],
     "frame_description": "",
     "frame_attributes": ["2D"],
     "frame_classes": ["diagrams", "creasePattern"],
@@ -130,7 +135,9 @@
     "edges_foldAngle": [0,0,0,0,180,0,0,0,0,180],
     "faces_vertices": [[4,1,5], [7,0,4,5,2,6], [6,3,7]],
     "faces_edges": [[1,2,4], [7,0,4,3,5,9], [6,8,9]],
-    "faces_re:layer": [1,0,2]
+    "faces_re:layer": [1,0,2],
+    "faces_re:coloring": [false, true, false],
+    "faces_re:sidedness": [false, false, true]
   },{
     "frame_description": "",
     "frame_attributes": ["2D"],
@@ -144,6 +151,8 @@
     "edges_foldAngle": [0,0,0,0,180,0,0,0,0,180],
     "faces_vertices": [[4,1,5], [7,0,4,5,2,6], [6,3,7]],
     "faces_edges": [[1,2,4], [7,0,4,3,5,9], [6,8,9]],
-    "faces_re:layer": [1,0,2]
+    "faces_re:layer": [1,0,2],
+    "faces_re:coloring": [false, true, false],
+    "faces_re:sidedness": [false, false, true]
   }]
 }

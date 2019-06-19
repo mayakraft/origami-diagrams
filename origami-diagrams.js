@@ -5,9 +5,7 @@
   (global.OrigamiDiagrams = factory());
 }(this, (function () { 'use strict';
 
-  var defaultPageStyle = "/*\n@page {\n  size: 8.5in 11in;\n  margin: 70pt 60pt 70pt;\n}\n*/\nhtml, body {\n  width: 100%;\n  margin: 0;\n}\nbody {\n  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n}\n.page-grid {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr;\n  grid-template-rows: 380px 290px 290px;\n  grid-auto-rows: 350px;\n}\ndiv.header {\n  grid-column-start: 1;\n  grid-column-end: 4;\n  /* -webkit-print-color-adjust: exact; */\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  grid-template-rows: 1fr 1fr 1fr 1fr;\n  height: 340px;\n  margin-bottom: 4rem;\n}\n/* give it a dash border */\ndiv.header {\n  padding:1em;\n  border-width: 5px;\n  border-style: dashed;\n  border-color: black;\n  box-shadow: inset 5px 5px 10px #ccc;\n}\nh1 {\n  font-size: 3.5rem;\n  margin-bottom: 2rem;\n  text-align: center;\n}\np {\n  font-size: 1.5rem;\n  text-align: center;\n  width: 100%;\n  margin: 1rem 0;\n}\n.small {\n  font-size: 70%;\n  margin-top: 2rem;\n}\ndiv.step {\n  position: relative;\n  text-align: center;\n}\ndiv.step .number {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 2rem;\n  height: 2rem;\n  background-color: white;\n  border: 3px solid black;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\ndiv.step svg {\n  margin: auto;\n}\n\n.title {\n  grid-column-start: 2;\n  grid-column-end: 3;\n  grid-row-start: 1;\n  grid-row-end: 2;\n}\n.author {\n  grid-column-start: 2;\n  grid-column-end: 3;\n  grid-row-start: 2;\n  grid-row-end: 3;\n}\n.fold-time {\n  grid-column-start: 2;\n  grid-column-end: 3;\n  grid-row-start: 3;\n  grid-row-end: 4;\n}\n.attribution {\n  grid-column-start: 2;\n  grid-column-end: 3;\n  grid-row-start: 4;\n  grid-row-end: 5;\n}\nsvg.header.foldedForm {\n  grid-column-start: 1;\n  grid-column-end: 2;\n  grid-row-start: 1;\n  grid-row-end: 4;\n  margin-left: 150px;\n  margin-top: 30px;\n  z-index: 3;\n}\n\nsvg.header.creasePattern, svg.header.foldedForm {\n  grid-column-start: 1;\n  grid-column-end: 2;\n  grid-row-start: 1;\n  grid-row-end: 4;\n  width: 280px;\n  height: 280px;\n}\nsvg.step {\n  height: 250px;\n  width: 250px;\n}\n\n/*\n * --------------------\n * crease pattern style\n * --------------------\n */\n\nsvg { --crease-width: 0.015; }\nsvg * {\n  stroke-width: var(--crease-width);\n  stroke-linecap: round;\n  stroke: black;\n}\npolygon { fill: none; stroke: none; stroke-linejoin: bevel; }\n.boundary { fill: white; stroke: black; }\n.mark { stroke: #AAA; }\n.mountain { stroke: #000; }\n.valley {\n  stroke: #000;\n  stroke-dasharray:calc(var(--crease-width)*1.333) calc(var(--crease-width)*2);\n}\n.foldedForm .boundary {fill: none; stroke: none;}\n.foldedForm .faces polygon { stroke: #000; }\n.foldedForm .faces .front { fill: linen; }\n.foldedForm .faces .back { fill: peru; }  /* #DDD; */\n.foldedForm .creases line { stroke: none; }\n.foldedForm .creases { display: none; opacity: 0; }\n.creasePattern .faces { display: none; opacity: 0; }\n.creasePattern .boundary { fill: linen; }\n";
-
-  var defaultCPStyle = "svg { --crease-width: 0.015; }\nsvg * {\n  stroke-width: var(--crease-width);\n  stroke-linecap: round;\n  stroke: black;\n}\npolygon { fill: none; stroke: none; stroke-linejoin: bevel; }\n.boundary { fill: white; stroke: black; }\n.mark { stroke: #AAA; }\n.mountain { stroke: #000; }\n.valley {\n  stroke: #000;\n  stroke-dasharray:calc(var(--crease-width)*1.333) calc(var(--crease-width)*2);\n}\n.foldedForm .boundary {fill: none; stroke: none;}\n.foldedForm .faces polygon { stroke: #000; }\n.foldedForm .faces .front { fill: linen; }\n.foldedForm .faces .back { fill: peru; }  /* #DDD; */\n.foldedForm .creases line { stroke: none; }\n\n.foldedForm .creases { display: none; opacity: 0; }\n.creasePattern .faces { display: none; opacity: 0; }\n\n.creasePattern .boundary { fill: linen; }";
+  var defaultPageStyle = "/*\n@page {\n  size: 8.5in 11in;\n  margin: 70pt 60pt 70pt;\n}\n*/\nhtml, body {\n  width: 100%;\n  margin: 0;\n}\nbody {\n  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n}\n.page-grid {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr;\n  grid-template-rows: 380px 290px 290px;\n  grid-auto-rows: 350px;\n}\ndiv.header {\n  grid-column-start: 1;\n  grid-column-end: 4;\n  /* -webkit-print-color-adjust: exact; */\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  grid-template-rows: 1fr 1fr 1fr 1fr;\n  height: calc(380px - 5rem - 1rem);\n  justify-items: center;\n  align-items: center;\n}\n/* give it a dash border */\ndiv.header {\n  padding: 2.5rem;\n  border-width: 5px;\n  border-style: dashed;\n  border-color: black;\n  box-shadow: inset 5px 5px 10px #ccc;\n}\nh1 {\n  font-size: 3.5rem;\n  /*margin-bottom: 2rem;*/\n  text-align: center;\n}\np {\n  font-size: 1.5rem;\n  text-align: center;\n  width: 100%;\n  /*margin: 1rem 0;*/\n}\nh1, p {\n  margin: 0;\n}\n.small {\n  font-size: 70%;\n  /*margin-top: 2rem;*/\n}\ndiv.step {\n  position: relative;\n  text-align: center;\n}\ndiv.step .number {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 2rem;\n  height: 2rem;\n  background-color: white;\n  border: 3px solid black;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\ndiv.step svg {\n  margin: auto;\n}\n\n.title {\n  grid-column-start: 2;\n  grid-column-end: 3;\n  grid-row-start: 1;\n  grid-row-end: 2;\n}\n.author {\n  grid-column-start: 2;\n  grid-column-end: 3;\n  grid-row-start: 2;\n  grid-row-end: 3;\n}\n.fold-time {\n  grid-column-start: 2;\n  grid-column-end: 3;\n  grid-row-start: 3;\n  grid-row-end: 4;\n}\n.attribution {\n  grid-column-start: 2;\n  grid-column-end: 3;\n  grid-row-start: 4;\n  grid-row-end: 5;\n}\nsvg.header.foldedForm {\n  grid-column-start: 1;\n  grid-column-end: 2;\n  grid-row-start: 1;\n  grid-row-end: 5;\n  margin-left: 150px;\n  margin-top: 30px;\n  z-index: 3;\n}\n\nsvg.header.creasePattern, svg.header.foldedForm {\n  grid-column-start: 1;\n  grid-column-end: 2;\n  grid-row-start: 1;\n  grid-row-end: 5;\n  justify-self: start;\n  width: 280px;\n  height: 280px;\n}\nsvg.step {\n  height: 250px;\n  width: 250px;\n}\n\n/*\n * --------------------\n * crease pattern style\n * --------------------\n */\n\nsvg { --crease-width: 0.015; }\nsvg * {\n  stroke-width: var(--crease-width);\n  stroke-linecap: round;\n  stroke: black;\n}\npolygon { fill: none; stroke: none; stroke-linejoin: bevel; }\n.boundary { fill: white; stroke: black; }\n.mark { stroke: #AAA; }\n.mountain { stroke: #000; }\n.valley {\n  stroke: #000;\n  stroke-dasharray:calc(var(--crease-width)*1.333) calc(var(--crease-width)*2);\n}\n.foldedForm .boundary {fill: none; stroke: none;}\n.foldedForm .faces polygon { stroke: #000; }\n.foldedForm .faces .front { fill: linen; }\n.foldedForm .faces .back { fill: peru; }  /* #DDD; */\n.foldedForm .creases line { stroke: none; }\n.foldedForm .creases { display: none; opacity: 0; }\n.creasePattern .faces { display: none; opacity: 0; }\n.creasePattern .boundary { fill: linen; }\n";
 
   var length = {a: 7, c: 6, h: 1, l: 2, m: 2, q: 4, s: 4, t: 2, v: 1, z: 0};
   var segment = /([astvzqmhlc])([^astvzqmhlc]*)/ig;
@@ -2164,14 +2162,8 @@
       : [min[0], min[1], max[0] - min[0], max[1] - min[1]]);
   };
 
-  const svgOptions = {
-    frame: 1,
-    padding: 0.15,
-    diagram: true,
-    inlineStyle: false,
-    shadows: false
-  };
-  const buildPage = function (fold_file, options) {
+  const buildPage = function (fold, options) {
+    const fold_file = JSON.parse(JSON.stringify(fold));
     const steps = fold_file.file_frames.filter(frame => frame.frame_classes.includes("diagrams"));
     const finalCP = fold_file.file_frames
       .filter(f => f.frame_classes.includes("final")
@@ -2194,17 +2186,28 @@
     let fold_time = Math.floor(steps.length / 4);
     if (fold_time === 0) { fold_time = 1; }
     const sequenceSVGs = steps
-      .map(cp => convert.toSVG(cp, Object.assign(svgOptions, {
-        diagram: true
-      })));
-    const cpSVG = convert.toSVG(finalCP, Object.assign(svgOptions, {
+      .map(cp => convert.toSVG(cp, {
+        inlineStyle: false,
+        diagram: true,
+        frame: 1,
+        padding: 0.15
+      }));
+    const cpSVG = convert.toSVG(finalCP, {
+      inlineStyle: false,
       diagram: false,
       padding: 0.02
-    }));
-    const finalSVG = convert.toSVG(finalFoldedForm, Object.assign(svgOptions, {
+    });
+    const finalSVG = convert.toSVG(finalFoldedForm, {
+      inlineStyle: false,
       diagram: false,
       padding: 0.02 + invVMax / 2
-    }));
+    });
+    finalFoldedForm.file_classes.push("copy");
+    const finalSVGCopy = convert.toSVG(finalFoldedForm, {
+      inlineStyle: false,
+      diagram: false,
+      padding: 0.02 + invVMax / 2
+    });
     const writtenInstructions = sequenceSVGs
       .map((svg, i) => steps[i]["re:diagrams"])
       .filter(a => a != null)
@@ -2223,13 +2226,16 @@
     return `<html>
 <head>
 <title>Rabbit Ear</title>
-<style>${options.pageStyle}</style>
+<style>
+${options.style}
+</style>
 </head>
 <body>
   <div class="page-grid">
     <div class="header">
       ${cpSVG}
       ${finalSVG}
+      ${finalSVGCopy}
       <h1 class="title">Origami</h1>
       <p class="author">by _____________</p>
       <p class="fold-time">fold time<br>${fold_time} ${(fold_time === 1 ? "minute" : "minutes")}</p>
@@ -2246,8 +2252,7 @@
     const o = {};
     Object.assign(o, options);
     if (o.shadows == null) { o.shadows = false; }
-    if (o.svgStyle == null) { o.svgStyle = defaultCPStyle; }
-    if (o.pageStyle == null) { o.pageStyle = defaultPageStyle; }
+    if (o.style == null) { o.style = defaultPageStyle; }
     return buildPage(fold_file, o);
   };
 
