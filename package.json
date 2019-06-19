@@ -1,8 +1,8 @@
 {
-	"name": "origami-diagram",
+	"name": "origami-diagrams",
 	"version": "0.1.0",
 	"description": "origami diagram builder using FOLD files and SVG, CSS, and HTML for rendering",
-	"main": "./origami-diagram.js",
+	"main": "./origami-diagrams.js",
 	"scripts": {
 		"test": "node tests/tests.js"
 	},
@@ -23,11 +23,11 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/robbykraft/origami-digrams.git"
+		"url": "git://github.com/robbykraft/origami-diagrams.git"
 	},
-	"homepage": "https://github.com/robbykraft/origami-digrams",
+	"homepage": "https://github.com/robbykraft/origami-diagrams",
 	"bugs": {
-		"url": "https://github.com/robbykraft/origami-digrams/issues"
+		"url": "https://github.com/robbykraft/origami-diagrams/issues"
 	},
 	"dependencies": {
 		"xmldom": "^0.1.27"

@@ -5,7 +5,7 @@
   (global.OrigamiDiagrams = factory());
 }(this, (function () { 'use strict';
 
-  var defaultPageStyle = "/* @page {\n  size: 8.5in 11in;\n  margin: 70pt 60pt 70pt;\n} */\nhtml, body {\n  width: 100%;\n  margin: 0;\n}\nbody {\n  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n}\n.header {\n  /* -webkit-print-color-adjust: exact; */\n  display: grid;\n  grid-template-columns: 50% 50%;\n  height: 340px;\n  margin-bottom: 4rem;\n}\n.dashbox {\n  padding:1em;\n  border-width: 5px;\n  border-style: dashed;\n  border-color: black;\n  box-shadow: inset 5px 5px 10px #ccc;\n}\n.description {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.grid {\n  display: grid;\n  grid-template-columns: 33% 33% 33%;\n  grid-template-rows: 290px 290px;\n  grid-auto-rows: 350px;\n  font-family: 'Montserrat', sans-serif;\n}\nh1 {\n  font-size: 3.5rem;\n  margin-bottom: 2rem;\n}\np {\n  font-size: 1.5rem;\n  text-align: center;\n  width: 100%;\n  margin: 1rem 0;\n}\n.floating-finished {\n  position: absolute;\n  bottom: 0;\n  right: -100px;\n}\n.small {\n  font-size: 70%;\n  margin-top: 2rem;\n}\n.step {\n  position: relative;\n  text-align: center;\n}\n.step .number {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 2rem;\n  height: 2rem;\n  background-color: white;\n  border: 3px solid black;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.step svg {\n  margin: auto;\n}\n.step:nth-child(15) {\n/*  grid-template-rows: 270px; */\n}";
+  var defaultPageStyle = "/*\n@page {\n  size: 8.5in 11in;\n  margin: 70pt 60pt 70pt;\n}\n*/\nhtml, body {\n  width: 100%;\n  margin: 0;\n}\nbody {\n  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n}\n.page-grid {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr;\n  grid-template-rows: 380px 290px 290px;\n  grid-auto-rows: 350px;\n}\ndiv.header {\n  grid-column-start: 1;\n  grid-column-end: 4;\n  /* -webkit-print-color-adjust: exact; */\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  grid-template-rows: 1fr 1fr 1fr 1fr;\n  height: 340px;\n  margin-bottom: 4rem;\n}\n/* give it a dash border */\ndiv.header {\n  padding:1em;\n  border-width: 5px;\n  border-style: dashed;\n  border-color: black;\n  box-shadow: inset 5px 5px 10px #ccc;\n}\nh1 {\n  font-size: 3.5rem;\n  margin-bottom: 2rem;\n  text-align: center;\n}\np {\n  font-size: 1.5rem;\n  text-align: center;\n  width: 100%;\n  margin: 1rem 0;\n}\n.small {\n  font-size: 70%;\n  margin-top: 2rem;\n}\ndiv.step {\n  position: relative;\n  text-align: center;\n}\ndiv.step .number {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 2rem;\n  height: 2rem;\n  background-color: white;\n  border: 3px solid black;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\ndiv.step svg {\n  margin: auto;\n}\n\n.title {\n  grid-column-start: 2;\n  grid-column-end: 3;\n  grid-row-start: 1;\n  grid-row-end: 2;\n}\n.author {\n  grid-column-start: 2;\n  grid-column-end: 3;\n  grid-row-start: 2;\n  grid-row-end: 3;\n}\n.fold-time {\n  grid-column-start: 2;\n  grid-column-end: 3;\n  grid-row-start: 3;\n  grid-row-end: 4;\n}\n.attribution {\n  grid-column-start: 2;\n  grid-column-end: 3;\n  grid-row-start: 4;\n  grid-row-end: 5;\n}\nsvg.header.foldedForm {\n  grid-column-start: 1;\n  grid-column-end: 2;\n  grid-row-start: 1;\n  grid-row-end: 4;\n  margin-left: 150px;\n  margin-top: 30px;\n  z-index: 3;\n}\n\nsvg.header.creasePattern, svg.header.foldedForm {\n  grid-column-start: 1;\n  grid-column-end: 2;\n  grid-row-start: 1;\n  grid-row-end: 4;\n  width: 280px;\n  height: 280px;\n}\nsvg.step {\n  height: 250px;\n  width: 250px;\n}\n\n/*\n * --------------------\n * crease pattern style\n * --------------------\n */\n\nsvg { --crease-width: 0.015; }\nsvg * {\n  stroke-width: var(--crease-width);\n  stroke-linecap: round;\n  stroke: black;\n}\npolygon { fill: none; stroke: none; stroke-linejoin: bevel; }\n.boundary { fill: white; stroke: black; }\n.mark { stroke: #AAA; }\n.mountain { stroke: #000; }\n.valley {\n  stroke: #000;\n  stroke-dasharray:calc(var(--crease-width)*1.333) calc(var(--crease-width)*2);\n}\n.foldedForm .boundary {fill: none; stroke: none;}\n.foldedForm .faces polygon { stroke: #000; }\n.foldedForm .faces .front { fill: linen; }\n.foldedForm .faces .back { fill: peru; }  /* #DDD; */\n.foldedForm .creases line { stroke: none; }\n.foldedForm .creases { display: none; opacity: 0; }\n.creasePattern .faces { display: none; opacity: 0; }\n.creasePattern .boundary { fill: linen; }\n";
 
   var defaultCPStyle = "svg { --crease-width: 0.015; }\nsvg * {\n  stroke-width: var(--crease-width);\n  stroke-linecap: round;\n  stroke: black;\n}\npolygon { fill: none; stroke: none; stroke-linejoin: bevel; }\n.boundary { fill: white; stroke: black; }\n.mark { stroke: #AAA; }\n.mountain { stroke: #000; }\n.valley {\n  stroke: #000;\n  stroke-dasharray:calc(var(--crease-width)*1.333) calc(var(--crease-width)*2);\n}\n.foldedForm .boundary {fill: none; stroke: none;}\n.foldedForm .faces polygon { stroke: #000; }\n.foldedForm .faces .front { fill: linen; }\n.foldedForm .faces .back { fill: peru; }  /* #DDD; */\n.foldedForm .creases line { stroke: none; }\n\n.foldedForm .creases { display: none; opacity: 0; }\n.creasePattern .faces { display: none; opacity: 0; }\n\n.creasePattern .boundary { fill: linen; }";
 
@@ -2060,20 +2060,22 @@
       vertices: false,
     };
     const o = {
-      width: options.width || "500px",
-      height: options.height || "500px",
-      style: options.style || true,
-      stylesheet: options.stylesheet || defaultStyle,
-      shadows: options.shadows || false,
-      padding: options.padding || 0,
+      defaults: true,
+      width: "500px",
+      height: "500px",
+      inlineStyle: true,
+      stylesheet: defaultStyle,
+      shadows: false,
+      padding: 0,
     };
+    Object.assign(o, options);
     if (options != null && options.frame != null) {
       graph = flatten_frame(fold, options.frame);
     }
     const file_classes = (graph.file_classes != null
       ? graph.file_classes : []).join(" ");
-    const frame_classes = graph.frame_classes != null
-      ? graph.frame_classes : [].join(" ");
+    const frame_classes = (graph.frame_classes != null
+      ? graph.frame_classes : []).join(" ");
     const top_level_classes = [file_classes, frame_classes]
       .filter(s => s !== "")
       .join(" ");
@@ -2107,14 +2109,14 @@
     }
     const rect$$1 = bounding_rect(graph);
     setViewBox(_svg, ...rect$$1, o.padding);
-    const vmin = rect$$1[2] > rect$$1[3] ? rect$$1[3] : rect$$1[2];
-    const innerStyle = (o.style
-      ? `\nsvg { --crease-width: ${vmin * 0.005}; }\n${o.stylesheet}`
-      : `\nsvg { --crease-width: ${vmin * 0.005}; }\n`);
-    const docu = (new DOMParser$2())
-      .parseFromString("<xml></xml>", "application/xml");
-    const cdata = docu.createCDATASection(innerStyle);
-    styleElement.appendChild(cdata);
+    if (o.inlineStyle) {
+      const vmin = rect$$1[2] > rect$$1[3] ? rect$$1[3] : rect$$1[2];
+      const innerStyle = `\nsvg { --crease-width: ${vmin * 0.005}; }\n${o.stylesheet}`;
+      const docu = (new DOMParser$2())
+        .parseFromString("<xml></xml>", "application/xml");
+      const cdata = docu.createCDATASection(innerStyle);
+      styleElement.appendChild(cdata);
+    }
     const stringified = (new XMLSerializer$2()).serializeToString(_svg);
     const beautified = vkXML$2(stringified);
     return beautified;
@@ -2145,65 +2147,6 @@
     },
   };
 
-  const clone = function (o) {
-    let newO;
-    let i;
-    if (typeof o !== "object") {
-      return o;
-    }
-    if (!o) {
-      return o;
-    }
-    if (Object.prototype.toString.apply(o) === "[object Array]") {
-      newO = [];
-      for (i = 0; i < o.length; i += 1) {
-        newO[i] = clone(o[i]);
-      }
-      return newO;
-    }
-    newO = {};
-    for (i in o) {
-      if (o.hasOwnProperty(i)) {
-        newO[i] = clone(o[i]);
-      }
-    }
-    return newO;
-  };
-  const flatten_frame$1 = function (fold_file, frame_num) {
-    if ("file_frames" in fold_file === false
-      || fold_file.file_frames.length < frame_num) {
-      return fold_file;
-    }
-    const dontCopy = ["frame_parent", "frame_inherit"];
-    const memo = { visited_frames: [] };
-    const recurse = function (recurse_fold, frame, orderArray) {
-      if (memo.visited_frames.indexOf(frame) !== -1) {
-        throw new Error("encountered a cycle in file_frames. can't flatten.");
-      }
-      memo.visited_frames.push(frame);
-      orderArray = [frame].concat(orderArray);
-      if (frame === 0) { return orderArray; }
-      if (recurse_fold.file_frames[frame - 1].frame_inherit
-         && recurse_fold.file_frames[frame - 1].frame_parent != null) {
-        return recurse(recurse_fold, recurse_fold.file_frames[frame - 1].frame_parent, orderArray);
-      }
-      return orderArray;
-    };
-    return recurse(fold_file, frame_num, []).map((frame) => {
-      if (frame === 0) {
-        const swap = fold_file.file_frames;
-        fold_file.file_frames = null;
-        const copy = clone(fold_file);
-        fold_file.file_frames = swap;
-        delete copy.file_frames;
-        dontCopy.forEach(key => delete copy[key]);
-        return copy;
-      }
-      const outerCopy = clone(fold_file.file_frames[frame - 1]);
-      dontCopy.forEach(key => delete outerCopy[key]);
-      return outerCopy;
-    }).reduce((prev, curr) => Object.assign(prev, curr), {});
-  };
   const bounding_rect$1 = function (graph) {
     if ("vertices_coords" in graph === false
       || graph.vertices_coords.length <= 0) {
@@ -2221,85 +2164,79 @@
       : [min[0], min[1], max[0] - min[0], max[1] - min[1]]);
   };
 
+  const svgOptions = {
+    frame: 1,
+    padding: 0.15,
+    diagram: true,
+    inlineStyle: false,
+    shadows: false
+  };
   const buildPage = function (fold_file, options) {
-    const svgStepOptions = {
-      width: 250,
-      height: 250,
-      frame: 1,
-      padding: 0.15,
-      diagram: true,
-      stylesheet: options.svgStyle,
-      shadows: options.shadows
-    };
-    const svgHeaderCPOptions = {
-      width: 280,
-      height: 280,
-      frame: 0,
-      padding: 0.02,
+    const steps = fold_file.file_frames.filter(frame => frame.frame_classes.includes("diagrams"));
+    const finalCP = fold_file.file_frames
+      .filter(f => f.frame_classes.includes("final")
+        && f.frame_classes.includes("creasePattern")).shift();
+    const finalFoldedForm = fold_file.file_frames
+      .filter(f => f.frame_classes.includes("final")
+        && f.frame_classes.includes("foldedForm")).shift();
+    steps.filter(s => s.file_classes == null)
+      .forEach((s) => { s.file_classes = []; });
+    if (finalCP.file_classes == null) { finalCP.file_classes = []; }
+    if (finalFoldedForm.file_classes == null) {
+      finalFoldedForm.file_classes = [];
+    }
+    steps.forEach(s => s.file_classes.push("step"));
+    finalCP.file_classes.push("header");
+    finalFoldedForm.file_classes.push("header");
+    const finishedFormRect = bounding_rect$1(finalFoldedForm);
+    const invVMax = 1.0 - (finishedFormRect[2] > finishedFormRect[3]
+      ? finishedFormRect[2] : finishedFormRect[3]);
+    let fold_time = Math.floor(steps.length / 4);
+    if (fold_time === 0) { fold_time = 1; }
+    const sequenceSVGs = steps
+      .map(cp => convert.toSVG(cp, Object.assign(svgOptions, {
+        diagram: true
+      })));
+    const cpSVG = convert.toSVG(finalCP, Object.assign(svgOptions, {
       diagram: false,
-      stylesheet: options.svgStyle,
-      shadows: options.shadows
-    };
-    const svgHeaderFoldedOptions = {
-      width: 280,
-      height: 280,
-      frame: 1,
-      padding: 0.02,
+      padding: 0.02
+    }));
+    const finalSVG = convert.toSVG(finalFoldedForm, Object.assign(svgOptions, {
       diagram: false,
-      stylesheet: options.svgStyle,
-      shadows: options.shadows
-    };
-    const steps = fold_file.file_frames;
-    const svgs = steps.map(cp => convert.toSVG(cp, svgStepOptions));
-    const writtenInstructions = svgs
+      padding: 0.02 + invVMax / 2
+    }));
+    const writtenInstructions = sequenceSVGs
       .map((svg, i) => steps[i]["re:diagrams"])
       .filter(a => a != null)
       .map(seq => seq.map(a => a["re:diagram_instructions"])
         .filter(a => a != null)
         .map(inst => inst.en)
         .join("\n"));
-    const cpSVG = convert.toSVG(steps[steps.length - 1], svgHeaderCPOptions);
-    const finishedFormGraph = flatten_frame$1(steps[steps.length - 1], 1);
-    const finishedFormRect = bounding_rect$1(finishedFormGraph);
-    const invVMax = 1.0 - (finishedFormRect[2] > finishedFormRect[3]
-      ? finishedFormRect[2] : finishedFormRect[3]);
-    svgHeaderFoldedOptions.padding = 0.02 + invVMax / 2;
-    const finishedSVG = convert.toSVG(steps[steps.length - 1], svgHeaderFoldedOptions);
-    let fold_time = Math.floor(steps.length / 4);
-    if (fold_time === 0) { fold_time = 1; }
-    writtenInstructions[svgs.length - 1] = "finished";
-    const header = `<div class="header dashbox">
-<div style="position: relative; padding: 30px;">
-  ${cpSVG}
-  <div class="floating-finished">
-    ${finishedSVG}
-  </div>
-</div>
-<div class="description">
-  <h1>Origami</h1>
-  <p>by _____________</p>
-  <p>fold time<br>${fold_time} ${(fold_time === 1 ? "minute" : "minutes")}</p>
-  <p class="small">RabbitEar.org</p>
-</div>
-</div>
-`;
-    let innerHTML = "";
-    innerHTML += header;
-    innerHTML += "<div class='grid'>\n";
-    innerHTML += svgs
+    const sequenceHTML = sequenceSVGs
       .reduce((prev, curr, i) => `${prev}
-<div class="step"><h3 class="number">${(i + 1)}</h3>
-${curr}
-<p>${(writtenInstructions[i] || "")}</p>
-</div>\n`, "");
-    innerHTML += "</div>\n";
+<div class="step">
+  <h3 class="number">${(i + 1)}</h3>
+  ${curr}
+  <p>${(writtenInstructions[i] || "")}</p>
+</div>
+`, "");
     return `<html>
 <head>
 <title>Rabbit Ear</title>
 <style>${options.pageStyle}</style>
 </head>
 <body>
-${innerHTML}
+  <div class="page-grid">
+    <div class="header">
+      ${cpSVG}
+      ${finalSVG}
+      <h1 class="title">Origami</h1>
+      <p class="author">by _____________</p>
+      <p class="fold-time">fold time<br>${fold_time} ${(fold_time === 1 ? "minute" : "minutes")}</p>
+      <p class="attribution small">RabbitEar.org</p>
+    </div>
+    ${sequenceHTML}
+  </div>
 </body>
 </html>`;
   };

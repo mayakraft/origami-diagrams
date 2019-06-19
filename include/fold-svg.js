@@ -2061,20 +2061,22 @@ function fold_to_svg (fold, options = {}) {
     vertices: false,
   };
   const o = {
-    width: options.width || "500px",
-    height: options.height || "500px",
-    style: options.style || true,
-    stylesheet: options.stylesheet || defaultStyle,
-    shadows: options.shadows || false,
-    padding: options.padding || 0,
+    defaults: true,
+    width: "500px",
+    height: "500px",
+    inlineStyle: true,
+    stylesheet: defaultStyle,
+    shadows: false,
+    padding: 0,
   };
+  Object.assign(o, options);
   if (options != null && options.frame != null) {
     graph = flatten_frame(fold, options.frame);
   }
   const file_classes = (graph.file_classes != null
     ? graph.file_classes : []).join(" ");
-  const frame_classes = graph.frame_classes != null
-    ? graph.frame_classes : [].join(" ");
+  const frame_classes = (graph.frame_classes != null
+    ? graph.frame_classes : []).join(" ");
   const top_level_classes = [file_classes, frame_classes]
     .filter(s => s !== "")
     .join(" ");
@@ -2108,14 +2110,14 @@ function fold_to_svg (fold, options = {}) {
   }
   const rect$$1 = bounding_rect(graph);
   setViewBox(_svg, ...rect$$1, o.padding);
-  const vmin = rect$$1[2] > rect$$1[3] ? rect$$1[3] : rect$$1[2];
-  const innerStyle = (o.style
-    ? `\nsvg { --crease-width: ${vmin * 0.005}; }\n${o.stylesheet}`
-    : `\nsvg { --crease-width: ${vmin * 0.005}; }\n`);
-  const docu = (new DOMParser$2())
-    .parseFromString("<xml></xml>", "application/xml");
-  const cdata = docu.createCDATASection(innerStyle);
-  styleElement.appendChild(cdata);
+  if (o.inlineStyle) {
+    const vmin = rect$$1[2] > rect$$1[3] ? rect$$1[3] : rect$$1[2];
+    const innerStyle = `\nsvg { --crease-width: ${vmin * 0.005}; }\n${o.stylesheet}`;
+    const docu = (new DOMParser$2())
+      .parseFromString("<xml></xml>", "application/xml");
+    const cdata = docu.createCDATASection(innerStyle);
+    styleElement.appendChild(cdata);
+  }
   const stringified = (new XMLSerializer$2()).serializeToString(_svg);
   const beautified = vkXML$2(stringified);
   return beautified;

@@ -1,10 +1,12 @@
 <html>
 <head>
 <title>Rabbit Ear</title>
-<style>/* @page {
+<style>/*
+@page {
   size: 8.5in 11in;
   margin: 70pt 60pt 70pt;
-} */
+}
+*/
 html, body {
   width: 100%;
   margin: 0;
@@ -12,36 +14,34 @@ html, body {
 body {
   font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
-.header {
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 380px 290px 290px;
+  grid-auto-rows: 350px;
+}
+div.header {
+  grid-column-start: 1;
+  grid-column-end: 4;
   /* -webkit-print-color-adjust: exact; */
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   height: 340px;
   margin-bottom: 4rem;
 }
-.dashbox {
+/* give it a dash border */
+div.header {
   padding:1em;
   border-width: 5px;
   border-style: dashed;
   border-color: black;
   box-shadow: inset 5px 5px 10px #ccc;
 }
-.description {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.grid {
-  display: grid;
-  grid-template-columns: 33% 33% 33%;
-  grid-template-rows: 290px 290px;
-  grid-auto-rows: 350px;
-  font-family: 'Montserrat', sans-serif;
-}
 h1 {
   font-size: 3.5rem;
   margin-bottom: 2rem;
+  text-align: center;
 }
 p {
   font-size: 1.5rem;
@@ -49,20 +49,15 @@ p {
   width: 100%;
   margin: 1rem 0;
 }
-.floating-finished {
-  position: absolute;
-  bottom: 0;
-  right: -100px;
-}
 .small {
   font-size: 70%;
   margin-top: 2rem;
 }
-.step {
+div.step {
   position: relative;
   text-align: center;
 }
-.step .number {
+div.step .number {
   position: absolute;
   top: 0;
   left: 0;
@@ -74,20 +69,63 @@ p {
   justify-content: center;
   align-items: center;
 }
-.step svg {
+div.step svg {
   margin: auto;
 }
-.step:nth-child(15) {
-/*  grid-template-rows: 270px; */
-}</style>
-</head>
-<body>
-<div class="header dashbox">
-<div style="position: relative; padding: 30px;">
-  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="creasePattern" width="280" height="280" viewBox="-0.02 -0.02 1.04 1.04">
-	<style type="text/css">
-		<![CDATA[
-svg { --crease-width: 0.005; }
+
+.title {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.author {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+.fold-time {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+.attribution {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 4;
+  grid-row-end: 5;
+}
+svg.header.foldedForm {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  margin-left: 150px;
+  margin-top: 30px;
+  z-index: 3;
+}
+
+svg.header.creasePattern, svg.header.foldedForm {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  width: 280px;
+  height: 280px;
+}
+svg.step {
+  height: 250px;
+  width: 250px;
+}
+
+/*
+ * --------------------
+ * crease pattern style
+ * --------------------
+ */
+
 svg { --crease-width: 0.015; }
 svg * {
   stroke-width: var(--crease-width);
@@ -107,19 +145,23 @@ polygon { fill: none; stroke: none; stroke-linejoin: bevel; }
 .foldedForm .faces .front { fill: linen; }
 .foldedForm .faces .back { fill: peru; }  /* #DDD; */
 .foldedForm .creases line { stroke: none; }
-
 .foldedForm .creases { display: none; opacity: 0; }
 .creasePattern .faces { display: none; opacity: 0; }
-
-.creasePattern .boundary { fill: linen; }]]>
-	</style>
+.creasePattern .boundary { fill: linen; }
+</style>
+</head>
+<body>
+  <div class="page-grid">
+    <div class="header">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="header final creasePattern" width="500px" height="500px" viewBox="-0.02 -0.02 1.04 1.04">
+	<style type="text/css"/>
 	<g class="boundaries">
-		<polygon points="0,0 0.5,0 1,0 1,0.5 1,1 0.8432934564877317,1 0,1 0,0.15938363242566583 " class="boundary"/>
+		<polygon points="0,0 0.5,0 1,0 1,0.5 1,1 0.85,1 0,1 0,0.15 " class="boundary"/>
 	</g>
 	<g class="faces">
-		<polygon points="0,0.15938363242566583 0,0 0.5,0 1,0.5 1,1 0.8432934564877317,1 " id="1" class="front"/>
-		<polygon points="0.5,0 1,0 1,0.5 " id="0" class="back"/>
-		<polygon points="0.8432934564877317,1 0,1 0,0.15938363242566583 " id="2" class="back"/>
+		<polygon points="0,0.15 0,0 0.5,0 1,0.5 1,1 0.85,1 " id="1" class="back"/>
+		<polygon points="0.5,0 1,0 1,0.5 " id="0" class="front"/>
+		<polygon points="0.85,1 0,1 0,0.15 " id="2" class="front"/>
 	</g>
 	<g class="creases">
 		<line x2="0.5" id="0" class="boundary"/>
@@ -127,51 +169,22 @@ polygon { fill: none; stroke: none; stroke-linejoin: bevel; }
 		<line x1="1" x2="1" y2="0.5" id="2" class="boundary"/>
 		<line x1="1" y1="1" x2="1" y2="0.5" id="3" class="boundary"/>
 		<line x1="0.5" x2="1" y2="0.5" id="4" class="valley"/>
-		<line x1="1" y1="1" x2="0.8432934564877317" y2="1" id="5" class="boundary"/>
-		<line y1="1" x2="0.8432934564877317" y2="1" id="6" class="boundary"/>
-		<line y2="0.15938363242566583" id="7" class="boundary"/>
-		<line y1="1" y2="0.15938363242566583" id="8" class="boundary"/>
-		<line x1="0.8432934564877317" y1="1" y2="0.15938363242566583" id="9" class="valley"/>
+		<line x1="1" y1="1" x2="0.85" y2="1" id="5" class="boundary"/>
+		<line y1="1" x2="0.85" y2="1" id="6" class="boundary"/>
+		<line y2="0.15" id="7" class="boundary"/>
+		<line y1="1" y2="0.15" id="8" class="boundary"/>
+		<line x1="0.85" y1="1" y2="0.15" id="9" class="valley"/>
 	</g>
-	<g/>
 </svg>
-  <div class="floating-finished">
-    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="foldedForm" width="280" height="280" viewBox="-0.02 -0.02 1.04 1.04">
-	<style type="text/css">
-		<![CDATA[
-svg { --crease-width: 0.005; }
-svg { --crease-width: 0.015; }
-svg * {
-  stroke-width: var(--crease-width);
-  stroke-linecap: round;
-  stroke: black;
-}
-polygon { fill: none; stroke: none; stroke-linejoin: bevel; }
-.boundary { fill: white; stroke: black; }
-.mark { stroke: #AAA; }
-.mountain { stroke: #000; }
-.valley {
-  stroke: #000;
-  stroke-dasharray:calc(var(--crease-width)*1.333) calc(var(--crease-width)*2);
-}
-.foldedForm .boundary {fill: none; stroke: none;}
-.foldedForm .faces polygon { stroke: #000; }
-.foldedForm .faces .front { fill: linen; }
-.foldedForm .faces .back { fill: peru; }  /* #DDD; */
-.foldedForm .creases line { stroke: none; }
-
-.foldedForm .creases { display: none; opacity: 0; }
-.creasePattern .faces { display: none; opacity: 0; }
-
-.creasePattern .boundary { fill: linen; }]]>
-	</style>
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="header final foldedForm" width="500px" height="500px" viewBox="-0.02 -0.02 1.04 1.04">
+	<style type="text/css"/>
 	<g class="boundaries">
-		<polygon points="0,0 0.5,0 0.5,0.5 1,0.5 1,1 0.843293456487732,1 0.840612118300984,0.156710806318168 0,0.159383632425666 " class="boundary"/>
+		<polygon points="0,0 0.5,0 0.5,0.5 1,0.5 1,1 0.85,1 0.85,0.15 0,0.15 " class="boundary"/>
 	</g>
 	<g class="faces">
-		<polygon points="0,0.159383632425666 0,0 0.5,0 1,0.5 1,1 0.843293456487732,1 " id="1" class="front"/>
-		<polygon points="0.5,0 0.5,0.5 1,0.5 " id="0" class="back"/>
-		<polygon points="0.843293456487732,1 0.840612118300984,0.156710806318168 0,0.159383632425666 " id="2" class="back"/>
+		<polygon points="0,0.15 0,0 0.5,0 1,0.5 1,1 0.85,1 " id="1" class="back"/>
+		<polygon points="0.5,0 0.5,0.5 1,0.5 " id="0" class="front"/>
+		<polygon points="0.85,1 0.85,0.15 0,0.15 " id="2" class="front"/>
 	</g>
 	<g class="creases">
 		<line x2="0.5" id="0" class="boundary"/>
@@ -179,55 +192,23 @@ polygon { fill: none; stroke: none; stroke-linejoin: bevel; }
 		<line x1="0.5" y1="0.5" x2="1" y2="0.5" id="2" class="boundary"/>
 		<line x1="1" y1="1" x2="1" y2="0.5" id="3" class="boundary"/>
 		<line x1="0.5" x2="1" y2="0.5" id="4" class="valley"/>
-		<line x1="1" y1="1" x2="0.843293456487732" y2="1" id="5" class="boundary"/>
-		<line x1="0.840612118300984" y1="0.156710806318168" x2="0.843293456487732" y2="1" id="6" class="boundary"/>
-		<line y2="0.159383632425666" id="7" class="boundary"/>
-		<line x1="0.840612118300984" y1="0.156710806318168" y2="0.159383632425666" id="8" class="boundary"/>
-		<line x1="0.843293456487732" y1="1" y2="0.159383632425666" id="9" class="valley"/>
+		<line x1="1" y1="1" x2="0.85" y2="1" id="5" class="boundary"/>
+		<line x1="0.85" y1="0.15" x2="0.85" y2="1" id="6" class="boundary"/>
+		<line y2="0.15" id="7" class="boundary"/>
+		<line x1="0.85" y1="0.15" y2="0.15" id="8" class="boundary"/>
+		<line x1="0.85" y1="1" y2="0.15" id="9" class="valley"/>
 	</g>
-	<g/>
 </svg>
-  </div>
-</div>
-<div class="description">
-  <h1>Origami</h1>
-  <p>by _____________</p>
-  <p>fold time<br>1 minute</p>
-  <p class="small">RabbitEar.org</p>
-</div>
-</div>
-<div class='grid'>
-
-<div class="step"><h3 class="number">1</h3>
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="creasePattern" width="250" height="250" viewBox="-0.15 -0.15 1.3 1.3">
-	<style type="text/css">
-		<![CDATA[
-svg { --crease-width: 0.005; }
-svg { --crease-width: 0.015; }
-svg * {
-  stroke-width: var(--crease-width);
-  stroke-linecap: round;
-  stroke: black;
-}
-polygon { fill: none; stroke: none; stroke-linejoin: bevel; }
-.boundary { fill: white; stroke: black; }
-.mark { stroke: #AAA; }
-.mountain { stroke: #000; }
-.valley {
-  stroke: #000;
-  stroke-dasharray:calc(var(--crease-width)*1.333) calc(var(--crease-width)*2);
-}
-.foldedForm .boundary {fill: none; stroke: none;}
-.foldedForm .faces polygon { stroke: #000; }
-.foldedForm .faces .front { fill: linen; }
-.foldedForm .faces .back { fill: peru; }  /* #DDD; */
-.foldedForm .creases line { stroke: none; }
-
-.foldedForm .creases { display: none; opacity: 0; }
-.creasePattern .faces { display: none; opacity: 0; }
-
-.creasePattern .boundary { fill: linen; }]]>
-	</style>
+      <h1 class="title">Origami</h1>
+      <p class="author">by _____________</p>
+      <p class="fold-time">fold time<br>1 minute</p>
+      <p class="attribution small">RabbitEar.org</p>
+    </div>
+    
+<div class="step">
+  <h3 class="number">1</h3>
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="step diagrams creasePattern" width="500px" height="500px" viewBox="-0.15 -0.15 1.3 1.3">
+	<style type="text/css"/>
 	<g class="boundaries">
 		<polygon points="0,0 1,0 1,1 0,1 " class="boundary"/>
 	</g>
@@ -248,39 +229,13 @@ polygon { fill: none; stroke: none; stroke-linejoin: bevel; }
 		</g>
 	</g>
 </svg>
-<p>valley fold</p>
+  <p>valley fold</p>
 </div>
 
-<div class="step"><h3 class="number">2</h3>
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="foldedForm" width="250" height="250" viewBox="-0.15 -0.15 1.3 1.3">
-	<style type="text/css">
-		<![CDATA[
-svg { --crease-width: 0.005; }
-svg { --crease-width: 0.015; }
-svg * {
-  stroke-width: var(--crease-width);
-  stroke-linecap: round;
-  stroke: black;
-}
-polygon { fill: none; stroke: none; stroke-linejoin: bevel; }
-.boundary { fill: white; stroke: black; }
-.mark { stroke: #AAA; }
-.mountain { stroke: #000; }
-.valley {
-  stroke: #000;
-  stroke-dasharray:calc(var(--crease-width)*1.333) calc(var(--crease-width)*2);
-}
-.foldedForm .boundary {fill: none; stroke: none;}
-.foldedForm .faces polygon { stroke: #000; }
-.foldedForm .faces .front { fill: linen; }
-.foldedForm .faces .back { fill: peru; }  /* #DDD; */
-.foldedForm .creases line { stroke: none; }
-
-.foldedForm .creases { display: none; opacity: 0; }
-.creasePattern .faces { display: none; opacity: 0; }
-
-.creasePattern .boundary { fill: linen; }]]>
-	</style>
+<div class="step">
+  <h3 class="number">2</h3>
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="step foldedForm" width="500px" height="500px" viewBox="-0.15 -0.15 1.3 1.3">
+	<style type="text/css"/>
 	<g class="boundaries">
 		<polygon points="1,1 0,1 0,0 0.5,0 0.5,0.5 1,0.5 " class="boundary"/>
 	</g>
@@ -298,53 +253,27 @@ polygon { fill: none; stroke: none; stroke-linejoin: bevel; }
 		<line x1="0.5" x2="1" y2="0.5" id="6" class="valley"/>
 	</g>
 	<g>
-		<line y1="0.159383632425666" x2="0.8432934564877319" y2="1" class="valley"/>
+		<line y1="0.15" x2="0.85" y2="1" class="valley"/>
 		<g>
-			<path d="M 0.010914213467360942,0.9563436150787897 C 0.08513795415720829,0.590654396539696 0.3520555199117342,0.2987231188987746 0.7096512965943922,0.19212561078318402" style="fill:none;stroke:#000;stroke-width:0.02"/>
-			<polygon points="0.718139957650045,0.22608061974331012 0.7011626355387394,0.15817060182305792 0.7969641767775736,0.1702976252115054 " style="stroke:none;fill:#000"/>
+			<path d="M 0.010939796589275227,0.9563500188936435 C 0.08647819501069405,0.5863139189657969 0.35696159092837065,0.2911483248903919 0.7190115136512559,0.18366521764912774" style="fill:none;stroke:#000;stroke-width:0.02"/>
+			<polygon points="0.7274802737825112,0.21762519559139473 0.7105427535200006,0.14970523970686075 0.8063371712170853,0.1618884058830426 " style="stroke:none;fill:#000"/>
 		</g>
 	</g>
 </svg>
-<p>valley fold</p>
+  <p>valley fold</p>
 </div>
 
-<div class="step"><h3 class="number">3</h3>
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="foldedForm" width="250" height="250" viewBox="-0.15 -0.15 1.3 1.3">
-	<style type="text/css">
-		<![CDATA[
-svg { --crease-width: 0.005; }
-svg { --crease-width: 0.015; }
-svg * {
-  stroke-width: var(--crease-width);
-  stroke-linecap: round;
-  stroke: black;
-}
-polygon { fill: none; stroke: none; stroke-linejoin: bevel; }
-.boundary { fill: white; stroke: black; }
-.mark { stroke: #AAA; }
-.mountain { stroke: #000; }
-.valley {
-  stroke: #000;
-  stroke-dasharray:calc(var(--crease-width)*1.333) calc(var(--crease-width)*2);
-}
-.foldedForm .boundary {fill: none; stroke: none;}
-.foldedForm .faces polygon { stroke: #000; }
-.foldedForm .faces .front { fill: linen; }
-.foldedForm .faces .back { fill: peru; }  /* #DDD; */
-.foldedForm .creases line { stroke: none; }
-
-.foldedForm .creases { display: none; opacity: 0; }
-.creasePattern .faces { display: none; opacity: 0; }
-
-.creasePattern .boundary { fill: linen; }]]>
-	</style>
+<div class="step">
+  <h3 class="number">3</h3>
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="step foldedForm" width="500px" height="500px" viewBox="-0.15 -0.15 1.3 1.3">
+	<style type="text/css"/>
 	<g class="boundaries">
-		<polygon points="0,0 0.5,0 0.5,0.5 1,0.5 1,1 0.843293456487732,1 0.840612118300984,0.156710806318168 0,0.159383632425666 " class="boundary"/>
+		<polygon points="0,0 0.5,0 0.5,0.5 1,0.5 1,1 0.85,1 0.85,0.15 0,0.15 " class="boundary"/>
 	</g>
 	<g class="faces">
-		<polygon points="0,0.159383632425666 0,0 0.5,0 1,0.5 1,1 0.843293456487732,1 " id="1" class="front"/>
+		<polygon points="0,0.15 0,0 0.5,0 1,0.5 1,1 0.85,1 " id="1" class="front"/>
 		<polygon points="0.5,0 0.5,0.5 1,0.5 " id="0" class="back"/>
-		<polygon points="0.843293456487732,1 0.840612118300984,0.156710806318168 0,0.159383632425666 " id="2" class="back"/>
+		<polygon points="0.85,1 0.85,0.15 0,0.15 " id="2" class="back"/>
 	</g>
 	<g class="creases">
 		<line x2="0.5" id="0" class="boundary"/>
@@ -352,17 +281,17 @@ polygon { fill: none; stroke: none; stroke-linejoin: bevel; }
 		<line x1="0.5" y1="0.5" x2="1" y2="0.5" id="2" class="boundary"/>
 		<line x1="1" y1="1" x2="1" y2="0.5" id="3" class="boundary"/>
 		<line x1="0.5" x2="1" y2="0.5" id="4" class="valley"/>
-		<line x1="1" y1="1" x2="0.843293456487732" y2="1" id="5" class="boundary"/>
-		<line x1="0.840612118300984" y1="0.156710806318168" x2="0.843293456487732" y2="1" id="6" class="boundary"/>
-		<line y2="0.159383632425666" id="7" class="boundary"/>
-		<line x1="0.840612118300984" y1="0.156710806318168" y2="0.159383632425666" id="8" class="boundary"/>
-		<line x1="0.843293456487732" y1="1" y2="0.159383632425666" id="9" class="valley"/>
+		<line x1="1" y1="1" x2="0.85" y2="1" id="5" class="boundary"/>
+		<line x1="0.85" y1="0.15" x2="0.85" y2="1" id="6" class="boundary"/>
+		<line y2="0.15" id="7" class="boundary"/>
+		<line x1="0.85" y1="0.15" y2="0.15" id="8" class="boundary"/>
+		<line x1="0.85" y1="1" y2="0.15" id="9" class="valley"/>
 	</g>
 	<g/>
 </svg>
-<p>finished</p>
-</div>
+  <p>finished</p>
 </div>
 
+  </div>
 </body>
 </html>

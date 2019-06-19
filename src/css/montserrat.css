@@ -1,7 +1,9 @@
-/* @page {
+/*
+@page {
   size: 8.5in 11in;
   margin: 70pt 60pt 70pt;
-} */
+}
+*/
 html, body {
   width: 100%;
   margin: 0;
@@ -9,36 +11,34 @@ html, body {
 body {
   font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
-.header {
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 380px 290px 290px;
+  grid-auto-rows: 350px;
+}
+div.header {
+  grid-column-start: 1;
+  grid-column-end: 4;
   /* -webkit-print-color-adjust: exact; */
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   height: 340px;
   margin-bottom: 4rem;
 }
-.dashbox {
+/* give it a dash border */
+div.header {
   padding:1em;
   border-width: 5px;
   border-style: dashed;
   border-color: black;
   box-shadow: inset 5px 5px 10px #ccc;
 }
-.description {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.grid {
-  display: grid;
-  grid-template-columns: 33% 33% 33%;
-  grid-template-rows: 290px 290px;
-  grid-auto-rows: 350px;
-  font-family: 'Montserrat', sans-serif;
-}
 h1 {
   font-size: 3.5rem;
   margin-bottom: 2rem;
+  text-align: center;
 }
 p {
   font-size: 1.5rem;
@@ -46,20 +46,15 @@ p {
   width: 100%;
   margin: 1rem 0;
 }
-.floating-finished {
-  position: absolute;
-  bottom: 0;
-  right: -100px;
-}
 .small {
   font-size: 70%;
   margin-top: 2rem;
 }
-.step {
+div.step {
   position: relative;
   text-align: center;
 }
-.step .number {
+div.step .number {
   position: absolute;
   top: 0;
   left: 0;
@@ -71,9 +66,82 @@ p {
   justify-content: center;
   align-items: center;
 }
-.step svg {
+div.step svg {
   margin: auto;
 }
-.step:nth-child(15) {
-/*  grid-template-rows: 270px; */
+
+.title {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
 }
+.author {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+.fold-time {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+.attribution {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 4;
+  grid-row-end: 5;
+}
+svg.header.foldedForm {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  margin-left: 150px;
+  margin-top: 30px;
+  z-index: 3;
+}
+
+svg.header.creasePattern, svg.header.foldedForm {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  width: 280px;
+  height: 280px;
+}
+svg.step {
+  height: 250px;
+  width: 250px;
+}
+
+/*
+ * --------------------
+ * crease pattern style
+ * --------------------
+ */
+
+svg { --crease-width: 0.015; }
+svg * {
+  stroke-width: var(--crease-width);
+  stroke-linecap: round;
+  stroke: black;
+}
+polygon { fill: none; stroke: none; stroke-linejoin: bevel; }
+.boundary { fill: white; stroke: black; }
+.mark { stroke: #AAA; }
+.mountain { stroke: #000; }
+.valley {
+  stroke: #000;
+  stroke-dasharray:calc(var(--crease-width)*1.333) calc(var(--crease-width)*2);
+}
+.foldedForm .boundary {fill: none; stroke: none;}
+.foldedForm .faces polygon { stroke: #000; }
+.foldedForm .faces .front { fill: linen; }
+.foldedForm .faces .back { fill: peru; }  /* #DDD; */
+.foldedForm .creases line { stroke: none; }
+.foldedForm .creases { display: none; opacity: 0; }
+.creasePattern .faces { display: none; opacity: 0; }
+.creasePattern .boundary { fill: linen; }

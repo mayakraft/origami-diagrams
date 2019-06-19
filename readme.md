@@ -16,7 +16,7 @@ presently, this program is reading a FOLD file in this way:
   "file_author": "Robby Kraft",
   "file_title": "African Elephant",
   "file_description": "a complex 3D African elephant with color changing tusks",
-  "file_classes": ["digrams"],
+  "file_classes": ["diagrams"],
   "file_frames": [{
     ...
   }, {
@@ -27,7 +27,7 @@ presently, this program is reading a FOLD file in this way:
 }
 ```
 
-The top level contains only "**file_**" entries (ignoring any geometry). **file_frames** contains the ordered list of steps to be diagrammed.
+The top level only contains "**file_**" entries (no FOLD geometry). **file_frames** contains the ordered list of steps to be diagrammed.
 
 ```
   "file_frames": [{
@@ -44,10 +44,10 @@ The top level contains only "**file_**" entries (ignoring any geometry). **file_
     ...
   }, {
 ```
-Somewhere we need to allow the ability to include additional information such as the finished crease pattern or folded form meant to be printed in places other than the diagram steps, like in the page header. Presently, these are included in **file_frames**, requiring the need to differentiate between diagram steps, and non-diagram steps.
+Somewhere we need to allow the ability to include additional information such as a finished crease pattern or folded form to be printed in places like the page header. Presently, these are included in **file_frames**, requiring the need to differentiate between diagram steps, and non-diagram steps.
 
-1. If a frame is meant to be a step in the diagram it should have some kind of class ("diagrams") inside **frame_classes**.
-2. alternatively the inclusion of a frame is implied by the presence of **re:diagrams** key. although, this gives the key a dual purpose (layout instructions, and inclusion-in-diagram), which could lead to confusion.
+1. If a frame is meant to be a step in the diagram it should have some kind of designation, perhaps a **frame_classes** "diagrams" entry.
+2. alternatively inclusion can be implied by the presence of **re:diagrams** key, where the actual diagramming data lives. though, this gives the key a dual purpose (layout instructions, and inclusion-in-diagram), which could lead to confusion.
 
 # FOLD Extensions
 
