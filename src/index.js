@@ -3,10 +3,6 @@ import defaultPageStyle from "./css/avenir.css";
 
 import BuildPage from "./build-page";
 
-// const diagramMaker = Object.create(null);
-// diagramMaker
-// export default Object.freeze(diagramMaker);
-
 const DiagramMaker = function (fold_file, options = {}) {
   if (fold_file.length === 0) { return ""; }
 

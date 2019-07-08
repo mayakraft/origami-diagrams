@@ -2152,6 +2152,16 @@
     },
   };
 
+  const get_file_value = function (fold_file, key_suffix) {
+    if (fold_file[`file_${key_suffix}`] == null) { return ""; }
+    return fold_file[`file_${key_suffix}`];
+  };
+  const add_frame_class = function (frame, class_name) {
+    if (frame.frame_classes == null) { frame.frame_classes = []; }
+    if (!frame.frame_classes.includes(class_name)) {
+      frame.frame_classes.push(class_name);
+    }
+  };
   const bounding_rect$1 = function (graph) {
     if ("vertices_coords" in graph === false
       || graph.vertices_coords.length <= 0) {
@@ -2167,6 +2177,16 @@
     return (isNaN(min[0]) || isNaN(min[1]) || isNaN(max[0]) || isNaN(max[1])
       ? [0, 0, 0, 0]
       : [min[0], min[1], max[0] - min[0], max[1] - min[1]]);
+  };
+  const final_frame_of_class = function (fold_file, frame_class) {
+    const matching_frames = fold_file.file_frames
+      .filter(f => f.frame_classes.includes(frame_class));
+    if (matching_frames.length === 0) { return {}; }
+    const matching_final = matching_frames
+      .filter(f => f.frame_classes.includes("final"))
+      .shift();
+    if (matching_final !== undefined) { return matching_final; }
+    return matching_frames[matching_frames.length - 1];
   };
   const clone = function (o) {
     let newO;
@@ -2192,94 +2212,21 @@
     }
     return newO;
   };
-  const flatten_frame$1 = function (fold_file, frame_num) {
-    if ("file_frames" in fold_file === false
-      || fold_file.file_frames.length < frame_num) {
-      return fold_file;
-    }
-    const dontCopy = ["frame_parent", "frame_inherit"];
-    const memo = { visited_frames: [] };
-    const recurse = function (recurse_fold, frame, orderArray) {
-      if (memo.visited_frames.indexOf(frame) !== -1) {
-        throw new Error("encountered a cycle in file_frames. can't flatten.");
-      }
-      memo.visited_frames.push(frame);
-      orderArray = [frame].concat(orderArray);
-      if (frame === 0) { return orderArray; }
-      if (recurse_fold.file_frames[frame - 1].frame_inherit
-         && recurse_fold.file_frames[frame - 1].frame_parent != null) {
-        return recurse(recurse_fold, recurse_fold.file_frames[frame - 1].frame_parent, orderArray);
-      }
-      return orderArray;
-    };
-    return recurse(fold_file, frame_num, []).map((frame) => {
-      if (frame === 0) {
-        const swap = fold_file.file_frames;
-        fold_file.file_frames = null;
-        const copy = clone(fold_file);
-        fold_file.file_frames = swap;
-        delete copy.file_frames;
-        dontCopy.forEach(key => delete copy[key]);
-        return copy;
-      }
-      const outerCopy = clone(fold_file.file_frames[frame - 1]);
-      dontCopy.forEach(key => delete outerCopy[key]);
-      return outerCopy;
-    }).reduce((prev, curr) => Object.assign(prev, curr), {});
-  };
 
-  const findFinal = function (fold_file, frame_class) {
-    const finalCP = fold_file.file_frames
-      .filter(f => f.frame_classes.includes("final")
-        && f.frame_classes.includes(frame_class)).shift();
-    if (finalCP !== undefined) { return finalCP; }
-    const final_frame = fold_file.file_frames[fold_file.file_frames.length - 1];
-    if ("frame_classes" in final_frame === true
-      && final_frame.frame_classes.includes(frame_class)) {
-      return clone(final_frame);
-    }
-    if ("file_frames" in final_frame === true) {
-      const found_index = final_frame.file_frames
-        .map((frame, i) => ("frame_classes" in frame === true
-          && frame.frame_classes.includes(frame_class) ? i : undefined))
-        .filter(el => el !== undefined)
-        .shift();
-      if (found_index !== undefined) {
-        return clone(flatten_frame$1(final_frame, found_index + 1));
-      }
-    }
-    return {};
-  };
   const buildPage = function (fold, options) {
-    const fold_file = JSON.parse(JSON.stringify(fold));
-    const file_keys = Object.keys(fold_file)
-      .filter(key => key.substring(0, 5) === "file_");
-    const meta = {};
-    file_keys.forEach((key) => { meta[key] = fold_file[key]; });
-    if (meta.file_title == null) { meta.file_title = "Origami"; }
-    if (meta.file_author == null) { meta.file_author = ""; }
-    if (meta.file_description == null) { meta.file_description = ""; }
-    const steps = fold_file.file_frames.filter(frame => frame.frame_classes.includes("diagrams"));
-    const finalCP = findFinal(fold_file, "creasePattern");
-    const finalFoldedForm = findFinal(fold_file, "foldedForm");
-    steps.filter(s => s.file_classes == null)
-      .forEach((s) => { s.file_classes = []; });
-    if (finalCP.file_classes == null) { finalCP.file_classes = []; }
-    if (finalFoldedForm.file_classes == null) {
-      finalFoldedForm.file_classes = [];
-    }
-    steps.forEach(s => s.file_classes.push("step"));
-    finalCP.file_classes.push("header");
-    finalFoldedForm.file_classes.push("header");
-    const finishedFormRect = bounding_rect$1(finalFoldedForm);
-    const invVMax = 1.0 - (finishedFormRect[2] > finishedFormRect[3]
-      ? finishedFormRect[2] : finishedFormRect[3]);
-    const invertedWidth = 1.0 - finishedFormRect[2];
-    const invertedHeight = 1.0 - finishedFormRect[3];
+    const fold_file = clone(fold);
+    const steps = fold_file.file_frames
+      .filter(frame => frame.frame_classes.includes("diagrams"));
+    const finalCP = final_frame_of_class(fold_file, "creasePattern");
+    const finalFoldedForm = final_frame_of_class(fold_file, "foldedForm");
+    steps.forEach(s => add_frame_class(s, "step"));
+    add_frame_class(finalCP, "header");
+    add_frame_class(finalFoldedForm, "header");
     let fold_time = Math.floor(steps.length / 4);
     if (fold_time === 0) { fold_time = 1; }
-    const size_ratio_float = (finishedFormRect[2] > finishedFormRect[3]
-      ? finishedFormRect[2] : finishedFormRect[3]);
+    const foldedFormBounds = bounding_rect$1(finalFoldedForm);
+    const size_ratio_float = (foldedFormBounds[2] > foldedFormBounds[3]
+      ? foldedFormBounds[2] : foldedFormBounds[3]);
     const size_ratio = `1 : ${size_ratio_float === 1
     ? size_ratio_float
     : size_ratio_float.toFixed(2)}`;
@@ -2300,11 +2247,14 @@
       diagram: false,
       padding: 0.02
     });
-    finalFoldedForm.file_classes.push("scaled");
+    finalFoldedForm.frame_classes.push("scaled");
     const finalSVGScaled = convert.toSVG(finalFoldedForm, {
       inlineStyle: false,
       diagram: false,
-      viewBox: [finishedFormRect[0], finishedFormRect[1] - invertedHeight, 1, 1]
+      viewBox: [
+        foldedFormBounds[0],
+        foldedFormBounds[1] - (1 - foldedFormBounds[3]),
+        1, 1]
     });
     const writtenInstructions = sequenceSVGs
       .map((svg, i) => steps[i]["re:diagrams"])
@@ -2334,9 +2284,9 @@ ${options.style}
       ${cpSVG}
       ${finalSVG}
       ${finalSVGScaled}
-      <h1 class="title">${meta.file_title}</h1>
-      <p class="author">designed by ${meta.file_author}</p>
-      <p class="description">${meta.file_description}</p>
+      <h1 class="title">${get_file_value(fold_file, "title")}</h1>
+      <p class="author">designed by ${get_file_value(fold_file, "author")}</p>
+      <p class="description">${get_file_value(fold_file, "description")}</p>
       <p class="size-ratio">ratio ${size_ratio}</p>
       <p class="fold-time">fold time<br>${fold_time} ${(fold_time === 1 ? "minute" : "minutes")}</p>
       <p class="attribution small">rabbitEar.org</p>
