@@ -13,16 +13,16 @@ body {
 }
 .page-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 380px 290px 290px;
-  grid-auto-rows: 350px;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: 430px 300px 300px;
+  grid-auto-rows: 348px;
 }
 div.header {
   grid-column-start: 1;
   grid-column-end: 4;
   /* -webkit-print-color-adjust: exact; */
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 58% 42%;
   grid-template-rows: 1fr 1fr 1fr 1fr;
   height: calc(380px - 5rem - 1rem);
   justify-items: center;
@@ -37,12 +37,12 @@ div.header {
   box-shadow: inset 5px 5px 10px #ccc;
 }
 h1 {
-  font-size: 3.5rem;
+  font-size: 3.3rem;
   /*margin-bottom: 2rem;*/
   text-align: center;
 }
 p {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   text-align: center;
   width: 100%;
   /*margin: 1rem 0;*/
@@ -86,17 +86,28 @@ div.step svg {
   grid-row-start: 2;
   grid-row-end: 3;
 }
+.description {
+  display: none;
+}
 .fold-time {
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 3;
   grid-row-end: 4;
 }
+.size-ratio {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 4;
+  grid-row-end: 5;
+  align-self: start;
+}
 .attribution {
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 4;
   grid-row-end: 5;
+  align-self: end;
 }
 svg.header.foldedForm {
   grid-column-start: 1;
@@ -120,6 +131,9 @@ svg.header.creasePattern, svg.header.foldedForm {
 svg.step {
   height: 250px;
   width: 250px;
+}
+svg.header.foldedForm.scaled {
+  display: none;
 }
 
 /*

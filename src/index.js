@@ -1,5 +1,6 @@
-import defaultPageStyle from "./css/montserrat.css";
-// import defaultCPStyle from "./css/cp.css";
+// import defaultPageStyle from "./css/montserrat.css";
+import defaultPageStyle from "./css/avenir.css";
+
 import BuildPage from "./build-page";
 
 // const diagramMaker = Object.create(null);

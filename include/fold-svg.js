@@ -2051,8 +2051,7 @@ const DISPLAY_NAME = {
   faces: "faces",
   boundaries: "boundaries",
 };
-function fold_to_svg (fold, options = {}) {
-  const _svg = svg$1();
+const fold_to_svg = function (fold, options = {}) {
   let graph = fold;
   const groups = {
     boundaries: true,
@@ -2068,10 +2067,14 @@ function fold_to_svg (fold, options = {}) {
     stylesheet: defaultStyle,
     shadows: false,
     padding: 0,
+    viewBox: null,
   };
   Object.assign(o, options);
-  if (options != null && options.frame != null) {
-    graph = flatten_frame(fold, options.frame);
+  if (o.frame != null) {
+    graph = flatten_frame(fold, o.frame);
+  }
+  if (o.svg == null) {
+    o.svg = svg$1();
   }
   const file_classes = (graph.file_classes != null
     ? graph.file_classes : []).join(" ");
@@ -2080,36 +2083,40 @@ function fold_to_svg (fold, options = {}) {
   const top_level_classes = [file_classes, frame_classes]
     .filter(s => s !== "")
     .join(" ");
-  _svg.setAttribute("class", top_level_classes);
-  _svg.setAttribute("width", o.width);
-  _svg.setAttribute("height", o.height);
+  o.svg.setAttribute("class", top_level_classes);
+  o.svg.setAttribute("width", o.width);
+  o.svg.setAttribute("height", o.height);
   const styleElement = style();
-  _svg.appendChild(styleElement);
+  o.svg.appendChild(styleElement);
   Object.keys(groups)
     .filter(key => groups[key] === false)
     .forEach(key => delete groups[key]);
   Object.keys(groups).forEach((key) => {
     groups[key] = group();
     groups[key].setAttribute("class", DISPLAY_NAME[key]);
-    _svg.appendChild(groups[key]);
+    o.svg.appendChild(groups[key]);
   });
   Object.keys(groups)
     .forEach(key => components[key](graph)
       .forEach(a => groups[key].appendChild(a)));
   if ("re:diagrams" in graph) {
     const instructionLayer = group();
-    _svg.appendChild(instructionLayer);
+    o.svg.appendChild(instructionLayer);
     renderDiagrams(graph, instructionLayer);
   }
   if (o.shadows) {
     const shadow_id = "face_shadow";
     const filter = shadowFilter(shadow_id);
-    _svg.appendChild(filter);
+    o.svg.appendChild(filter);
     Array.from(groups.faces.childNodes)
       .forEach(f => f.setAttribute("filter", `url(#${shadow_id})`));
   }
   const rect$$1 = bounding_rect(graph);
-  setViewBox(_svg, ...rect$$1, o.padding);
+  if (o.viewBox != null) {
+    setViewBox(o.svg, ...o.viewBox, o.padding);
+  } else {
+    setViewBox(o.svg, ...rect$$1, o.padding);
+  }
   if (o.inlineStyle) {
     const vmin = rect$$1[2] > rect$$1[3] ? rect$$1[3] : rect$$1[2];
     const innerStyle = `\nsvg { --crease-width: ${vmin * 0.005}; }\n${o.stylesheet}`;
@@ -2118,10 +2125,10 @@ function fold_to_svg (fold, options = {}) {
     const cdata = docu.createCDATASection(innerStyle);
     styleElement.appendChild(cdata);
   }
-  const stringified = (new XMLSerializer$2()).serializeToString(_svg);
+  const stringified = (new XMLSerializer$2()).serializeToString(o.svg);
   const beautified = vkXML$2(stringified);
   return beautified;
-}
+};
 
 const convert = {
   components,

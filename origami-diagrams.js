@@ -5,7 +5,7 @@
   (global.OrigamiDiagrams = factory());
 }(this, (function () { 'use strict';
 
-  var defaultPageStyle = "/*\n@page {\n  size: 8.5in 11in;\n  margin: 70pt 60pt 70pt;\n}\n*/\nhtml, body {\n  width: 100%;\n  margin: 0;\n}\nbody {\n  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n}\n.page-grid {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr;\n  grid-template-rows: 380px 290px 290px;\n  grid-auto-rows: 350px;\n}\ndiv.header {\n  grid-column-start: 1;\n  grid-column-end: 4;\n  /* -webkit-print-color-adjust: exact; */\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  grid-template-rows: 1fr 1fr 1fr 1fr;\n  height: calc(380px - 5rem - 1rem);\n  justify-items: center;\n  align-items: center;\n}\n/* give it a dash border */\ndiv.header {\n  padding: 2.5rem;\n  border-width: 5px;\n  border-style: dashed;\n  border-color: black;\n  box-shadow: inset 5px 5px 10px #ccc;\n}\nh1 {\n  font-size: 3.5rem;\n  /*margin-bottom: 2rem;*/\n  text-align: center;\n}\np {\n  font-size: 1.5rem;\n  text-align: center;\n  width: 100%;\n  /*margin: 1rem 0;*/\n}\nh1, p {\n  margin: 0;\n}\n.small {\n  font-size: 70%;\n  /*margin-top: 2rem;*/\n}\ndiv.step {\n  position: relative;\n  text-align: center;\n}\ndiv.step .number {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 2rem;\n  height: 2rem;\n  background-color: white;\n  border: 3px solid black;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\ndiv.step svg {\n  margin: auto;\n}\n\n.title {\n  grid-column-start: 2;\n  grid-column-end: 3;\n  grid-row-start: 1;\n  grid-row-end: 2;\n}\n.author {\n  grid-column-start: 2;\n  grid-column-end: 3;\n  grid-row-start: 2;\n  grid-row-end: 3;\n}\n.fold-time {\n  grid-column-start: 2;\n  grid-column-end: 3;\n  grid-row-start: 3;\n  grid-row-end: 4;\n}\n.attribution {\n  grid-column-start: 2;\n  grid-column-end: 3;\n  grid-row-start: 4;\n  grid-row-end: 5;\n}\nsvg.header.foldedForm {\n  grid-column-start: 1;\n  grid-column-end: 2;\n  grid-row-start: 1;\n  grid-row-end: 5;\n  margin-left: 150px;\n  margin-top: 30px;\n  z-index: 3;\n}\n\nsvg.header.creasePattern, svg.header.foldedForm {\n  grid-column-start: 1;\n  grid-column-end: 2;\n  grid-row-start: 1;\n  grid-row-end: 5;\n  justify-self: start;\n  width: 280px;\n  height: 280px;\n}\nsvg.step {\n  height: 250px;\n  width: 250px;\n}\n\n/*\n * --------------------\n * crease pattern style\n * --------------------\n */\n\nsvg { --crease-width: 0.015; }\nsvg * {\n  stroke-width: var(--crease-width);\n  stroke-linecap: round;\n  stroke: black;\n}\npolygon { fill: none; stroke: none; stroke-linejoin: bevel; }\n.boundary { fill: white; stroke: black; }\n.mark { stroke: #AAA; }\n.mountain { stroke: #000; }\n.valley {\n  stroke: #000;\n  stroke-dasharray:calc(var(--crease-width)*1.333) calc(var(--crease-width)*2);\n}\n.foldedForm .boundary {fill: none; stroke: none;}\n.foldedForm .faces polygon { stroke: #000; }\n.foldedForm .faces .front { fill: linen; }\n.foldedForm .faces .back { fill: peru; }  /* #DDD; */\n.foldedForm .creases line { stroke: none; }\n.foldedForm .creases { display: none; opacity: 0; }\n.creasePattern .faces { display: none; opacity: 0; }\n.creasePattern .boundary { fill: linen; }\n";
+  var defaultPageStyle = "html, body {\n  width: 100%;\n  margin: 0;\n}\nbody {\n  font-family: 'Avenir Next', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n}\n.page-grid {\n  display: grid;\n  grid-template-columns: 25% 25% 25% 25%;\n  grid-template-rows: 250px 250px 270px 270px;\n  grid-auto-rows: 264px;\n}\ndiv.header {\n  height: 400px;\n  padding: 1rem;\n  padding-left: 3rem;\n  padding-top: 2rem;\n  grid-column-start: 2;\n  grid-column-end: 5;\n  grid-row-start: 1;\n  grid-row-end: 3;\n  /* -webkit-print-color-adjust: exact; */\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-template-rows: 1fr 1fr 1fr 1fr;\n  justify-items: center;\n  align-items: center;\n}\nh1 {\n  font-size: 3.5rem;\n  /*margin-bottom: 2rem;*/\n  text-align: left;\n}\np {\n  font-size: 1rem;\n  width: 100%;\n  /*margin: 1rem 0;*/\n}\nh1, p {\n  margin: 0;\n}\nh1 {\n  width: 100%;\n  border-width: 0 0 1px 0;\n  border-style: solid;\n  border-color: black;\n}\n.small {\n  font-size: 70%;\n  /*margin-top: 2rem;*/\n}\ndiv.step {\n  position: relative;\n  text-align: center;\n}\ndiv.step .number {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 2rem;\n  height: 2rem;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  font-size: 1rem;\n  font-weight: 400;\n}\ndiv.step svg {\n  margin: auto;\n}\n\n.title {\n  grid-column-start: 1;\n  grid-column-end: 5;\n  grid-row-start: 1;\n  grid-row-end: 2;\n}\n.author {\n  grid-column-start: 1;\n  grid-column-end: 3;\n  grid-row-start: 2;\n  grid-row-end: 3;\n  justify-self: start;\n  align-self: start;\n  text-align: left;\n}\n.description {\n  grid-column-start: 1;\n  grid-column-end: 3;\n  grid-row-start: 2;\n  grid-row-end: 3;\n  justify-self: start;\n  align-self: start;\n  text-align: left;\n  margin-top: 1.5rem;\n  z-index: 3;\n}\n.fold-time {\n  grid-column-start: 3;\n  grid-column-end: 5;\n  grid-row-start: 1;\n  grid-row-end: 2;\n  align-self: center;\n  justify-self: end;\n  text-align: right;\n}\n.size-ratio {\n  grid-column-start: 1;\n  grid-column-end: 2;\n  grid-row-start: 2;\n  grid-row-end: 3;\n  align-self: end;\n}\n.attribution {\n  grid-column-start: 1;\n  grid-column-end: 5;\n  grid-row-start: 4;\n  grid-row-end: 5;\n  align-self: end;\n  text-align: right;\n  position: relative;\n  bottom: -1rem;\n  border-width: 0 0 1px 0;\n  border-style: solid;\n  border-color: black;\n  line-height: 3rem;\n}\n\nsvg.step {\n  height: 210px;\n  width: 210px;\n}\nsvg.header.creasePattern {\n  grid-column-start: 1;\n  grid-column-end: 2;\n  grid-row-start: 3;\n  grid-row-end: 5;\n  justify-self: end;\n  align-self: end;\n  width: 200px;\n  height: 200px;\n}\nsvg.header.foldedForm {\n  grid-column-start: 3;\n  grid-column-end: 5;\n  grid-row-start: 1;\n  grid-row-end: 5;\n  justify-self: end;\n  width: 300px;\n  height: 300px;\n  z-index: 3;\n  margin-top: 2rem;\n}\nsvg.header.foldedForm.scaled {\n  grid-column-start: 2;\n  grid-column-end: 3;\n  grid-row-start: 3;\n  grid-row-end: 5;\n  width: 200px;\n  height: 200px;\n  z-index: 2;\n  justify-self: start;\n  align-self: end;\n  margin-top: initial;\n  margin-left: -3rem;\n}\n\ndiv.step:nth-of-type(2) {\n  grid-column-start: 1;\n  grid-column-end: 2;\n  grid-row-start: 1;\n  grid-row-end: 2;\n  /*align-self: end;*/\n}\n\ndiv.step:nth-of-type(3) {\n  grid-column-start: 1;\n  grid-column-end: 2;\n  grid-row-start: 2;\n  grid-row-end: 3;\n  /*align-self: end;*/\n}\n\n/*\n * --------------------\n * crease pattern style\n * --------------------\n */\n\nsvg { --crease-width: 0.005; }\nsvg * {\n  stroke-width: var(--crease-width);\n  stroke-linecap: round;\n  stroke: black;\n}\npolygon { fill: none; stroke: none; stroke-linejoin: bevel; }\n.boundary { fill: white; stroke: black; }\n.mark { stroke: #AAA; }\n.mountain { stroke: #000; }\n.valley {\n  stroke: #000;\n  stroke-dasharray: calc(var(--crease-width)*2) calc(var(--crease-width)*4);\n}\n.foldedForm .boundary {fill: none; stroke: none;}\n.foldedForm .faces polygon { stroke: #000; }\n.foldedForm .faces .front { fill: white; }\n.foldedForm .faces .back { fill: #dcd8d4; }\n.foldedForm .creases line { stroke: none; }\n.foldedForm .creases { display: none; opacity: 0; }\n.creasePattern .faces { display: none; opacity: 0; }\n.creasePattern .boundary { fill: white; }\n.creasePattern .valley { stroke-dasharray: initial; }\n\nsvg.header.foldedForm.scaled .faces .front { fill: black;}\nsvg.header.foldedForm.scaled .faces .back { fill: black;}\n";
 
   var length = {a: 7, c: 6, h: 1, l: 2, m: 2, q: 4, s: 4, t: 2, v: 1, z: 0};
   var segment = /([astvzqmhlc])([^astvzqmhlc]*)/ig;
@@ -2048,8 +2048,7 @@
     faces: "faces",
     boundaries: "boundaries",
   };
-  function fold_to_svg (fold, options = {}) {
-    const _svg = svg$1();
+  const fold_to_svg = function (fold, options = {}) {
     let graph = fold;
     const groups = {
       boundaries: true,
@@ -2065,10 +2064,14 @@
       stylesheet: defaultStyle,
       shadows: false,
       padding: 0,
+      viewBox: null,
     };
     Object.assign(o, options);
-    if (options != null && options.frame != null) {
-      graph = flatten_frame(fold, options.frame);
+    if (o.frame != null) {
+      graph = flatten_frame(fold, o.frame);
+    }
+    if (o.svg == null) {
+      o.svg = svg$1();
     }
     const file_classes = (graph.file_classes != null
       ? graph.file_classes : []).join(" ");
@@ -2077,36 +2080,40 @@
     const top_level_classes = [file_classes, frame_classes]
       .filter(s => s !== "")
       .join(" ");
-    _svg.setAttribute("class", top_level_classes);
-    _svg.setAttribute("width", o.width);
-    _svg.setAttribute("height", o.height);
+    o.svg.setAttribute("class", top_level_classes);
+    o.svg.setAttribute("width", o.width);
+    o.svg.setAttribute("height", o.height);
     const styleElement = style();
-    _svg.appendChild(styleElement);
+    o.svg.appendChild(styleElement);
     Object.keys(groups)
       .filter(key => groups[key] === false)
       .forEach(key => delete groups[key]);
     Object.keys(groups).forEach((key) => {
       groups[key] = group();
       groups[key].setAttribute("class", DISPLAY_NAME[key]);
-      _svg.appendChild(groups[key]);
+      o.svg.appendChild(groups[key]);
     });
     Object.keys(groups)
       .forEach(key => components[key](graph)
         .forEach(a => groups[key].appendChild(a)));
     if ("re:diagrams" in graph) {
       const instructionLayer = group();
-      _svg.appendChild(instructionLayer);
+      o.svg.appendChild(instructionLayer);
       renderDiagrams(graph, instructionLayer);
     }
     if (o.shadows) {
       const shadow_id = "face_shadow";
       const filter = shadowFilter(shadow_id);
-      _svg.appendChild(filter);
+      o.svg.appendChild(filter);
       Array.from(groups.faces.childNodes)
         .forEach(f => f.setAttribute("filter", `url(#${shadow_id})`));
     }
     const rect$$1 = bounding_rect(graph);
-    setViewBox(_svg, ...rect$$1, o.padding);
+    if (o.viewBox != null) {
+      setViewBox(o.svg, ...o.viewBox, o.padding);
+    } else {
+      setViewBox(o.svg, ...rect$$1, o.padding);
+    }
     if (o.inlineStyle) {
       const vmin = rect$$1[2] > rect$$1[3] ? rect$$1[3] : rect$$1[2];
       const innerStyle = `\nsvg { --crease-width: ${vmin * 0.005}; }\n${o.stylesheet}`;
@@ -2115,10 +2122,10 @@
       const cdata = docu.createCDATASection(innerStyle);
       styleElement.appendChild(cdata);
     }
-    const stringified = (new XMLSerializer$2()).serializeToString(_svg);
+    const stringified = (new XMLSerializer$2()).serializeToString(o.svg);
     const beautified = vkXML$2(stringified);
     return beautified;
-  }
+  };
   const convert = {
     components,
     toSVG: (input, options) => {
@@ -2161,16 +2168,100 @@
       ? [0, 0, 0, 0]
       : [min[0], min[1], max[0] - min[0], max[1] - min[1]]);
   };
+  const clone = function (o) {
+    let newO;
+    let i;
+    if (typeof o !== "object") {
+      return o;
+    }
+    if (!o) {
+      return o;
+    }
+    if (Object.prototype.toString.apply(o) === "[object Array]") {
+      newO = [];
+      for (i = 0; i < o.length; i += 1) {
+        newO[i] = clone(o[i]);
+      }
+      return newO;
+    }
+    newO = {};
+    for (i in o) {
+      if (o.hasOwnProperty(i)) {
+        newO[i] = clone(o[i]);
+      }
+    }
+    return newO;
+  };
+  const flatten_frame$1 = function (fold_file, frame_num) {
+    if ("file_frames" in fold_file === false
+      || fold_file.file_frames.length < frame_num) {
+      return fold_file;
+    }
+    const dontCopy = ["frame_parent", "frame_inherit"];
+    const memo = { visited_frames: [] };
+    const recurse = function (recurse_fold, frame, orderArray) {
+      if (memo.visited_frames.indexOf(frame) !== -1) {
+        throw new Error("encountered a cycle in file_frames. can't flatten.");
+      }
+      memo.visited_frames.push(frame);
+      orderArray = [frame].concat(orderArray);
+      if (frame === 0) { return orderArray; }
+      if (recurse_fold.file_frames[frame - 1].frame_inherit
+         && recurse_fold.file_frames[frame - 1].frame_parent != null) {
+        return recurse(recurse_fold, recurse_fold.file_frames[frame - 1].frame_parent, orderArray);
+      }
+      return orderArray;
+    };
+    return recurse(fold_file, frame_num, []).map((frame) => {
+      if (frame === 0) {
+        const swap = fold_file.file_frames;
+        fold_file.file_frames = null;
+        const copy = clone(fold_file);
+        fold_file.file_frames = swap;
+        delete copy.file_frames;
+        dontCopy.forEach(key => delete copy[key]);
+        return copy;
+      }
+      const outerCopy = clone(fold_file.file_frames[frame - 1]);
+      dontCopy.forEach(key => delete outerCopy[key]);
+      return outerCopy;
+    }).reduce((prev, curr) => Object.assign(prev, curr), {});
+  };
 
-  const buildPage = function (fold, options) {
-    const fold_file = JSON.parse(JSON.stringify(fold));
-    const steps = fold_file.file_frames.filter(frame => frame.frame_classes.includes("diagrams"));
+  const findFinal = function (fold_file, frame_class) {
     const finalCP = fold_file.file_frames
       .filter(f => f.frame_classes.includes("final")
-        && f.frame_classes.includes("creasePattern")).shift();
-    const finalFoldedForm = fold_file.file_frames
-      .filter(f => f.frame_classes.includes("final")
-        && f.frame_classes.includes("foldedForm")).shift();
+        && f.frame_classes.includes(frame_class)).shift();
+    if (finalCP !== undefined) { return finalCP; }
+    const final_frame = fold_file.file_frames[fold_file.file_frames.length - 1];
+    if ("frame_classes" in final_frame === true
+      && final_frame.frame_classes.includes(frame_class)) {
+      return clone(final_frame);
+    }
+    if ("file_frames" in final_frame === true) {
+      const found_index = final_frame.file_frames
+        .map((frame, i) => ("frame_classes" in frame === true
+          && frame.frame_classes.includes(frame_class) ? i : undefined))
+        .filter(el => el !== undefined)
+        .shift();
+      if (found_index !== undefined) {
+        return clone(flatten_frame$1(final_frame, found_index + 1));
+      }
+    }
+    return {};
+  };
+  const buildPage = function (fold, options) {
+    const fold_file = JSON.parse(JSON.stringify(fold));
+    const file_keys = Object.keys(fold_file)
+      .filter(key => key.substring(0, 5) === "file_");
+    const meta = {};
+    file_keys.forEach((key) => { meta[key] = fold_file[key]; });
+    if (meta.file_title == null) { meta.file_title = "Origami"; }
+    if (meta.file_author == null) { meta.file_author = ""; }
+    if (meta.file_description == null) { meta.file_description = ""; }
+    const steps = fold_file.file_frames.filter(frame => frame.frame_classes.includes("diagrams"));
+    const finalCP = findFinal(fold_file, "creasePattern");
+    const finalFoldedForm = findFinal(fold_file, "foldedForm");
     steps.filter(s => s.file_classes == null)
       .forEach((s) => { s.file_classes = []; });
     if (finalCP.file_classes == null) { finalCP.file_classes = []; }
@@ -2183,8 +2274,15 @@
     const finishedFormRect = bounding_rect$1(finalFoldedForm);
     const invVMax = 1.0 - (finishedFormRect[2] > finishedFormRect[3]
       ? finishedFormRect[2] : finishedFormRect[3]);
+    const invertedWidth = 1.0 - finishedFormRect[2];
+    const invertedHeight = 1.0 - finishedFormRect[3];
     let fold_time = Math.floor(steps.length / 4);
     if (fold_time === 0) { fold_time = 1; }
+    const size_ratio_float = (finishedFormRect[2] > finishedFormRect[3]
+      ? finishedFormRect[2] : finishedFormRect[3]);
+    const size_ratio = `1 : ${size_ratio_float === 1
+    ? size_ratio_float
+    : size_ratio_float.toFixed(2)}`;
     const sequenceSVGs = steps
       .map(cp => convert.toSVG(cp, {
         inlineStyle: false,
@@ -2200,13 +2298,13 @@
     const finalSVG = convert.toSVG(finalFoldedForm, {
       inlineStyle: false,
       diagram: false,
-      padding: 0.02 + invVMax / 2
+      padding: 0.02
     });
-    finalFoldedForm.file_classes.push("copy");
-    const finalSVGCopy = convert.toSVG(finalFoldedForm, {
+    finalFoldedForm.file_classes.push("scaled");
+    const finalSVGScaled = convert.toSVG(finalFoldedForm, {
       inlineStyle: false,
       diagram: false,
-      padding: 0.02 + invVMax / 2
+      viewBox: [finishedFormRect[0], finishedFormRect[1] - invertedHeight, 1, 1]
     });
     const writtenInstructions = sequenceSVGs
       .map((svg, i) => steps[i]["re:diagrams"])
@@ -2235,11 +2333,13 @@ ${options.style}
     <div class="header">
       ${cpSVG}
       ${finalSVG}
-      ${finalSVGCopy}
-      <h1 class="title">Origami</h1>
-      <p class="author">by _____________</p>
+      ${finalSVGScaled}
+      <h1 class="title">${meta.file_title}</h1>
+      <p class="author">designed by ${meta.file_author}</p>
+      <p class="description">${meta.file_description}</p>
+      <p class="size-ratio">ratio ${size_ratio}</p>
       <p class="fold-time">fold time<br>${fold_time} ${(fold_time === 1 ? "minute" : "minutes")}</p>
-      <p class="attribution small">RabbitEar.org</p>
+      <p class="attribution small">rabbitEar.org</p>
     </div>
     ${sequenceHTML}
   </div>

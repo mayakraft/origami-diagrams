@@ -2,8 +2,8 @@
   "file_spec": 1.1,
   "file_author": "Robby Kraft",
   "file_title": "two fold",
-  "file_description": "a simple 3 step example",
-  "file_classes": ["digrams"],
+  "file_description": "a simple origami in three steps",
+  "file_classes": ["diagrams"],
   "file_creator": "Rabbit Ear",
   "file_frames": [{
     "file_frames": [{
@@ -25,6 +25,7 @@
     "edges_length": [1,1,1,1],
     "faces_vertices": [[0,1,2,3]],
     "faces_edges": [[0,1,2,3]],
+    "faces_re:layer": [0],
     "re:diagrams": [{
       "re:diagram_lines": [{
         "re:diagram_line_classes": ["valley"],

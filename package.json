@@ -30,6 +30,7 @@
 		"url": "https://github.com/robbykraft/origami-diagrams/issues"
 	},
 	"dependencies": {
+		"npm": "^6.9.0",
 		"xmldom": "^0.1.27"
 	},
 	"devDependencies": {
