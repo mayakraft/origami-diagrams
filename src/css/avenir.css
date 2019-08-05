@@ -8,7 +8,7 @@ body {
 .page-grid {
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
-  grid-template-rows: 250px 250px 270px 270px;
+  grid-template-rows: 250px 250px 264px 264px;
   grid-auto-rows: 264px;
 }
 div.header {

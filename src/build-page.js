@@ -3,7 +3,7 @@
  * each fold object should contain diagram frames (see: readme)
  */
 
-import FOLD_SVG from "../include/fold-svg";
+import DrawFOLD from "../include/fold-draw";
 import {
   get_file_value,
   add_frame_class,
@@ -38,24 +38,23 @@ const buildPage = function (fold, options) {
 
   // build SVGs, the sequence, and 2 for the header the CP and folded form
   const sequenceSVGs = steps
-    .map(cp => FOLD_SVG.toSVG(cp, {
+    .map(cp => DrawFOLD.svg(cp, {
       inlineStyle: false,
       diagram: true,
-      frame: 1,
       padding: 0.15
     }));
-  const cpSVG = FOLD_SVG.toSVG(finalCP, {
+  const cpSVG = DrawFOLD.svg(finalCP, {
     inlineStyle: false,
     diagram: false,
     padding: 0.02
   });
-  const finalSVG = FOLD_SVG.toSVG(finalFoldedForm, {
+  const finalSVG = DrawFOLD.svg(finalFoldedForm, {
     inlineStyle: false,
     diagram: false,
     padding: 0.02
   });
   finalFoldedForm.frame_classes.push("scaled");
-  const finalSVGScaled = FOLD_SVG.toSVG(finalFoldedForm, {
+  const finalSVGScaled = DrawFOLD.svg(finalFoldedForm, {
     inlineStyle: false,
     diagram: false,
     // padding: 0.02 + invVMax / 2
