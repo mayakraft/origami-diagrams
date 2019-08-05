@@ -17,34 +17,60 @@
         return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
       };
     }
+
     return _typeof(obj);
   }
-  function _slicedToArray(arr, i) {
-    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+
+  function _typeof$1(obj) {
+    if (typeof Symbol === "function" && _typeof(Symbol.iterator) === "symbol") {
+      _typeof$1 = function _typeof$$1(obj) {
+        return _typeof(obj);
+      };
+    } else {
+      _typeof$1 = function _typeof$$1(obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : _typeof(obj);
+      };
+    }
+
+    return _typeof$1(obj);
   }
-  function _toConsumableArray(arr) {
-    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+
+  function _slicedToArray$1(arr, i) {
+    return _arrayWithHoles$1(arr) || _iterableToArrayLimit$1(arr, i) || _nonIterableRest$1();
   }
-  function _arrayWithoutHoles(arr) {
+
+  function _toConsumableArray$1(arr) {
+    return _arrayWithoutHoles$1(arr) || _iterableToArray$1(arr) || _nonIterableSpread$1();
+  }
+
+  function _arrayWithoutHoles$1(arr) {
     if (Array.isArray(arr)) {
-      for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+      for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {
+        arr2[i] = arr[i];
+      }
+
       return arr2;
     }
   }
-  function _arrayWithHoles(arr) {
+
+  function _arrayWithHoles$1(arr) {
     if (Array.isArray(arr)) return arr;
   }
-  function _iterableToArray(iter) {
+
+  function _iterableToArray$1(iter) {
     if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
   }
-  function _iterableToArrayLimit(arr, i) {
+
+  function _iterableToArrayLimit$1(arr, i) {
     var _arr = [];
     var _n = true;
     var _d = false;
     var _e = undefined;
+
     try {
       for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
         _arr.push(_s.value);
+
         if (i && _arr.length === i) break;
       }
     } catch (err) {
@@ -57,14 +83,18 @@
         if (_d) throw _e;
       }
     }
+
     return _arr;
   }
-  function _nonIterableSpread() {
+
+  function _nonIterableSpread$1() {
     throw new TypeError("Invalid attempt to spread non-iterable instance");
   }
-  function _nonIterableRest() {
+
+  function _nonIterableRest$1() {
     throw new TypeError("Invalid attempt to destructure non-iterable instance");
   }
+
   var make_vertices_edges = function make_vertices_edges(graph) {
     var vertices_edges = graph.vertices_coords.map(function () {
       return [];
@@ -76,6 +106,7 @@
     });
     return vertices_edges;
   };
+
   var get_boundary = function get_boundary(graph) {
     var edges_vertices_b = graph.edges_assignment.map(function (a) {
       return a === "B" || a === "b";
@@ -84,52 +115,64 @@
     var edge_walk = [];
     var vertex_walk = [];
     var edgeIndex = -1;
+
     for (var i = 0; i < edges_vertices_b.length; i += 1) {
       if (edges_vertices_b[i]) {
         edgeIndex = i;
         break;
       }
     }
+
     if (edgeIndex === -1) {
       return {
         vertices: [],
         edges: []
       };
     }
+
     edges_vertices_b[edgeIndex] = false;
     edge_walk.push(edgeIndex);
     vertex_walk.push(graph.edges_vertices[edgeIndex][0]);
     var nextVertex = graph.edges_vertices[edgeIndex][1];
+
     while (vertex_walk[0] !== nextVertex) {
       vertex_walk.push(nextVertex);
       edgeIndex = vertices_edges[nextVertex].filter(function (v) {
         return edges_vertices_b[v];
       }).shift();
+
       if (edgeIndex === undefined) {
         return {
           vertices: [],
           edges: []
         };
       }
+
       if (graph.edges_vertices[edgeIndex][0] === nextVertex) {
-        var _graph$edges_vertices = _slicedToArray(graph.edges_vertices[edgeIndex], 2);
+        var _graph$edges_vertices = _slicedToArray$1(graph.edges_vertices[edgeIndex], 2);
+
         nextVertex = _graph$edges_vertices[1];
       } else {
-        var _graph$edges_vertices2 = _slicedToArray(graph.edges_vertices[edgeIndex], 1);
+        var _graph$edges_vertices2 = _slicedToArray$1(graph.edges_vertices[edgeIndex], 1);
+
         nextVertex = _graph$edges_vertices2[0];
       }
+
       edges_vertices_b[edgeIndex] = false;
       edge_walk.push(edgeIndex);
     }
+
     return {
       vertices: vertex_walk,
       edges: edge_walk
     };
   };
+
   var bounding_rect = function bounding_rect(graph) {
     if ("vertices_coords" in graph === false || graph.vertices_coords.length <= 0) {
       return [0, 0, 0, 0];
     }
+
     var dimension = graph.vertices_coords[0].length;
     var min = Array(dimension).fill(Infinity);
     var max = Array(dimension).fill(-Infinity);
@@ -138,6 +181,7 @@
         if (n < min[i]) {
           min[i] = n;
         }
+
         if (n > max[i]) {
           max[i] = n;
         }
@@ -145,6 +189,7 @@
     });
     return isNaN(min[0]) || isNaN(min[1]) || isNaN(max[0]) || isNaN(max[1]) ? [0, 0, 0, 0] : [min[0], min[1], max[0] - min[0], max[1] - min[1]];
   };
+
   var make_faces_faces = function make_faces_faces(graph) {
     var nf = graph.faces_vertices.length;
     var faces_faces = Array.from(Array(nf)).map(function () {
@@ -155,15 +200,19 @@
       if (vertices_index === undefined) {
         return;
       }
+
       var n = vertices_index.length;
       vertices_index.forEach(function (v1, i, vs) {
         var v2 = vs[(i + 1) % n];
+
         if (v2 < v1) {
           var _ref = [v2, v1];
           v1 = _ref[0];
           v2 = _ref[1];
         }
+
         var key = "".concat(v1, " ").concat(v2);
+
         if (key in edgeMap) {
           var idx2 = edgeMap[key];
           faces_faces[idx1].push(idx2);
@@ -175,6 +224,7 @@
     });
     return faces_faces;
   };
+
   var faces_coloring_from_faces_matrix = function faces_coloring_from_faces_matrix(faces_matrix) {
     return faces_matrix.map(function (m) {
       return m[0] * m[3] - m[1] * m[2];
@@ -182,6 +232,7 @@
       return c >= 0;
     });
   };
+
   var faces_coloring = function faces_coloring(graph) {
     var root_face = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
     var coloring = [];
@@ -193,13 +244,16 @@
     });
     return coloring;
   };
+
   var make_face_walk_tree = function make_face_walk_tree(graph) {
     var root_face = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
     var edge_map = make_vertex_pair_to_edge_map(graph);
     var new_faces_faces = make_faces_faces(graph);
+
     if (new_faces_faces.length <= 0) {
       return [];
     }
+
     var visited = [root_face];
     var list = [[{
       face: root_face,
@@ -207,6 +261,7 @@
       edge: undefined,
       level: 0
     }]];
+
     do {
       list[list.length] = list[list.length - 1].map(function (current) {
         var unique_faces = new_faces_faces[current.face].filter(function (f) {
@@ -231,57 +286,76 @@
         return prev.concat(curr);
       }, []);
     } while (list[list.length - 1].length > 0);
+
     if (list.length > 0 && list[list.length - 1].length === 0) {
       list.pop();
     }
+
     return list;
   };
+
   var clone = function clone(o) {
     var newO;
     var i;
-    if (_typeof(o) !== "object") {
+
+    if (_typeof$1(o) !== "object") {
       return o;
     }
+
     if (!o) {
       return o;
     }
+
     if (Object.prototype.toString.apply(o) === "[object Array]") {
       newO = [];
+
       for (i = 0; i < o.length; i += 1) {
         newO[i] = clone(o[i]);
       }
+
       return newO;
     }
+
     newO = {};
+
     for (i in o) {
       if (o.hasOwnProperty(i)) {
         newO[i] = clone(o[i]);
       }
     }
+
     return newO;
   };
+
   var flatten_frame = function flatten_frame(fold_file, frame_num) {
     if ("file_frames" in fold_file === false || fold_file.file_frames.length < frame_num) {
       return fold_file;
     }
+
     var dontCopy = ["frame_parent", "frame_inherit"];
     var memo = {
       visited_frames: []
     };
+
     var recurse = function recurse(recurse_fold, frame, orderArray) {
       if (memo.visited_frames.indexOf(frame) !== -1) {
         throw new Error("encountered a cycle in file_frames. can't flatten.");
       }
+
       memo.visited_frames.push(frame);
       orderArray = [frame].concat(orderArray);
+
       if (frame === 0) {
         return orderArray;
       }
+
       if (recurse_fold.file_frames[frame - 1].frame_inherit && recurse_fold.file_frames[frame - 1].frame_parent != null) {
         return recurse(recurse_fold, recurse_fold.file_frames[frame - 1].frame_parent, orderArray);
       }
+
       return orderArray;
     };
+
     return recurse(fold_file, frame_num, []).map(function (frame) {
       if (frame === 0) {
         var swap = fold_file.file_frames;
@@ -294,6 +368,7 @@
         });
         return copy;
       }
+
       var outerCopy = clone(fold_file.file_frames[frame - 1]);
       dontCopy.forEach(function (key) {
         return delete outerCopy[key];
@@ -303,35 +378,43 @@
       return Object.assign(prev, curr);
     }, {});
   };
+
   var isBrowser = typeof window !== "undefined" && typeof window.document !== "undefined";
   var isNode = typeof process !== "undefined" && process.versions != null && process.versions.node != null;
-  var isWebWorker = (typeof self === "undefined" ? "undefined" : _typeof(self)) === "object" && self.constructor && self.constructor.name === "DedicatedWorkerGlobalScope";
+  var isWebWorker = (typeof self === "undefined" ? "undefined" : _typeof$1(self)) === "object" && self.constructor && self.constructor.name === "DedicatedWorkerGlobalScope";
   var htmlString = "<!DOCTYPE html><title>a</title>";
   var win = !isNode && isBrowser ? window : {};
+
   if (isNode) {
     var _require = require("xmldom"),
         DOMParser = _require.DOMParser,
         XMLSerializer = _require.XMLSerializer;
+
     win.DOMParser = DOMParser;
     win.XMLSerializer = XMLSerializer;
     win.document = new DOMParser().parseFromString(htmlString, "text/html");
   }
+
   var svgNS = "http://www.w3.org/2000/svg";
+
   var svg = function svg() {
     var svgImage = win.document.createElementNS(svgNS, "svg");
     svgImage.setAttribute("version", "1.1");
     svgImage.setAttribute("xmlns", svgNS);
     return svgImage;
   };
+
   var group = function group() {
     var g = win.document.createElementNS(svgNS, "g");
     return g;
   };
+
   var style = function style() {
     var s = win.document.createElementNS(svgNS, "style");
     s.setAttribute("type", "text/css");
     return s;
   };
+
   var setViewBox = function setViewBox(SVG, x, y, width, height) {
     var padding = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;
     var scale = 1.0;
@@ -343,6 +426,7 @@
     var viewBoxString = [X, Y, W, H].join(" ");
     SVG.setAttributeNS(null, "viewBox", viewBoxString);
   };
+
   var line = function line(x1, y1, x2, y2) {
     var shape = win.document.createElementNS(svgNS, "line");
     shape.setAttributeNS(null, "x1", x1);
@@ -351,6 +435,7 @@
     shape.setAttributeNS(null, "y2", y2);
     return shape;
   };
+
   var circle = function circle(x, y, radius) {
     var shape = win.document.createElementNS(svgNS, "circle");
     shape.setAttributeNS(null, "cx", x);
@@ -358,6 +443,7 @@
     shape.setAttributeNS(null, "r", radius);
     return shape;
   };
+
   var polygon = function polygon(pointsArray) {
     var shape = win.document.createElementNS(svgNS, "polygon");
     var pointsString = pointsArray.reduce(function (a, b) {
@@ -366,6 +452,7 @@
     shape.setAttributeNS(null, "points", pointsString);
     return shape;
   };
+
   var bezier = function bezier(fromX, fromY, c1X, c1Y, c2X, c2Y, toX, toY) {
     var pts = [[fromX, fromY], [c1X, c1Y], [c2X, c2Y], [toX, toY]].map(function (p) {
       return p.join(",");
@@ -375,6 +462,7 @@
     shape.setAttributeNS(null, "d", d);
     return shape;
   };
+
   var arcArrow = function arcArrow(start, end, options) {
     var p = {
       color: "#000",
@@ -390,9 +478,11 @@
       strokeStyle: "",
       fillStyle: ""
     };
-    if (_typeof(options) === "object" && options !== null) {
+
+    if (_typeof$1(options) === "object" && options !== null) {
       Object.assign(p, options);
     }
+
     var arrowFill = ["stroke:none", "fill:".concat(p.color), p.fillStyle].filter(function (a) {
       return a !== "";
     }).join(";");
@@ -405,12 +495,14 @@
     var midpoint = [startPoint[0] + vector[0] / 2, startPoint[1] + vector[1] / 2];
     var len = Math.sqrt(vector[0] * vector[0] + vector[1] * vector[1]);
     var minLength = (p.start ? 1 + p.padding : 0 + p.end ? 1 + p.padding : 0) * p.length * 2.5;
+
     if (len < minLength) {
       var minVec = [vector[0] / len * minLength, vector[1] / len * minLength];
       startPoint = [midpoint[0] - minVec[0] * 0.5, midpoint[1] - minVec[1] * 0.5];
       endPoint = [midpoint[0] + minVec[0] * 0.5, midpoint[1] + minVec[1] * 0.5];
       vector = [endPoint[0] - startPoint[0], endPoint[1] - startPoint[1]];
     }
+
     var perpendicular = [vector[1], -vector[0]];
     var bezPoint = [midpoint[0] + perpendicular[0] * (p.side ? 1 : -1) * p.bend, midpoint[1] + perpendicular[1] * (p.side ? 1 : -1) * p.bend];
     var bezStart = [bezPoint[0] - startPoint[0], bezPoint[1] - startPoint[1]];
@@ -437,18 +529,22 @@
     var arrowArc = bezier(arcStart[0], arcStart[1], controlStart[0], controlStart[1], controlEnd[0], controlEnd[1], arcEnd[0], arcEnd[1]);
     arrowArc.setAttribute("style", arrowStroke);
     arrowGroup.appendChild(arrowArc);
+
     if (p.start) {
       var startHead = polygon(startHeadPoints);
       startHead.setAttribute("style", arrowFill);
       arrowGroup.appendChild(startHead);
     }
+
     if (p.end) {
       var endHead = polygon(endHeadPoints);
       endHead.setAttribute("style", arrowFill);
       arrowGroup.appendChild(endHead);
     }
+
     return arrowGroup;
   };
+
   var CREASE_NAMES = {
     B: "boundary",
     b: "boundary",
@@ -461,6 +557,7 @@
     U: "mark",
     u: "mark"
   };
+
   var faces_sorted_by_layer = function faces_sorted_by_layer(faces_layer) {
     return faces_layer.map(function (layer, i) {
       return {
@@ -473,35 +570,44 @@
       return el.i;
     });
   };
+
   var make_faces_sidedness = function make_faces_sidedness(graph) {
     var coloring = graph["faces_re:coloring"];
+
     if (coloring == null) {
       coloring = "faces_re:matrix" in graph ? faces_coloring_from_faces_matrix(graph["faces_re:matrix"]) : faces_coloring(graph, 0);
     }
+
     return coloring.map(function (c) {
       return c ? "front" : "back";
     });
   };
+
   var finalize_faces = function finalize_faces(graph, svg_faces) {
     var orderIsCertain = graph["faces_re:layer"] != null && graph["faces_re:layer"].length === graph.faces_vertices.length;
+
     if (orderIsCertain) {
       make_faces_sidedness(graph).forEach(function (side, i) {
         return svg_faces[i].setAttribute("class", side);
       });
     }
+
     return orderIsCertain ? faces_sorted_by_layer(graph["faces_re:layer"]).map(function (i) {
       return svg_faces[i];
     }) : svg_faces;
   };
+
   var make_edge_assignment_names = function make_edge_assignment_names(graph) {
     return graph.edges_vertices == null || graph.edges_assignment == null || graph.edges_vertices.length !== graph.edges_assignment.length ? [] : graph.edges_assignment.map(function (a) {
       return CREASE_NAMES[a];
     });
   };
+
   var svgBoundaries = function svgBoundaries(graph) {
     if ("vertices_coords" in graph === false || "edges_vertices" in graph === false || "edges_assignment" in graph === false) {
       return [];
     }
+
     var boundary = get_boundary(graph).vertices.map(function (v) {
       return graph.vertices_coords[v];
     });
@@ -509,10 +615,12 @@
     p.setAttribute("class", "boundary");
     return [p];
   };
+
   var svgVertices = function svgVertices(graph, options) {
     if ("vertices_coords" in graph === false) {
       return [];
     }
+
     var radius = options && options.radius ? options.radius : 0.01;
     var svg_vertices = graph.vertices_coords.map(function (v) {
       return circle(v[0], v[1], radius);
@@ -522,10 +630,12 @@
     });
     return svg_vertices;
   };
+
   var svgEdges = function svgEdges(graph) {
     if ("edges_vertices" in graph === false || "vertices_coords" in graph === false) {
       return [];
     }
+
     var svg_edges = graph.edges_vertices.map(function (ev) {
       return ev.map(function (v) {
         return graph.vertices_coords[v];
@@ -541,10 +651,12 @@
     });
     return svg_edges;
   };
+
   var svgFacesVertices = function svgFacesVertices(graph) {
     if ("faces_vertices" in graph === false || "vertices_coords" in graph === false) {
       return [];
     }
+
     var svg_faces = graph.faces_vertices.map(function (fv) {
       return fv.map(function (v) {
         return graph.vertices_coords[v];
@@ -557,10 +669,12 @@
     });
     return finalize_faces(graph, svg_faces);
   };
+
   var svgFacesEdges = function svgFacesEdges(graph) {
     if ("faces_edges" in graph === false || "edges_vertices" in graph === false || "vertices_coords" in graph === false) {
       return [];
     }
+
     var svg_faces = graph.faces_edges.map(function (face_edges) {
       return face_edges.map(function (edge) {
         return graph.edges_vertices[edge];
@@ -578,8 +692,10 @@
     });
     return finalize_faces(graph, svg_faces);
   };
-  var defaultStyle = "svg * {\n  stroke-width: var(--crease-width);\n  stroke-linecap: round;\n  stroke: black;\n}\npolygon { fill: none; stroke: none; stroke-linejoin: bevel; }\n.boundary { fill: white; stroke: black;}\n.mark { stroke: #aaa;}\n.mountain { stroke: #f00;}\n.valley {\n  stroke: #00f;\n  stroke-dasharray: calc(var(--crease-width) * 2) calc(var(--crease-width) * 2);\n}\n.foldedForm .boundary { fill: none;stroke: none; }\n.foldedForm .faces polygon { stroke: black; }\n.foldedForm .faces .front { fill: #fff; }\n.foldedForm .faces .back { fill: #ddd; }\n.foldedForm .creases line { stroke: none; }\n";
-  function vkXML (text, step) {
+
+  var defaultStyle = "svg * {\n  stroke-width: var(--crease-width);\n  stroke-linecap: round;\n  stroke: black;\n}\nline.mountain { stroke: red; }\nline.mark { stroke: lightgray; }\nline.valley { stroke: blue;\n  stroke-dasharray: calc(var(--crease-width) * 2) calc(var(--crease-width) * 2);\n}\npolygon { stroke: none; stroke-linejoin: bevel; }\n.foldedForm polygon { stroke: black; fill: #8881; }\n.foldedForm polygon.front { fill: white; }\n.foldedForm polygon.back { fill: lightgray; }\n.creasePattern .boundaries polygon { fill: white; stroke: black; }\n.foldedForm .boundaries polygon { fill: none; stroke: none; }\n.foldedForm line { stroke: none; }\n";
+
+  function vkXML(text, step) {
     var ar = text.replace(/>\s{0,}</g, "><").replace(/</g, "~::~<").replace(/\s*xmlns\:/g, "~::~xmlns:").split("~::~");
     var len = ar.length;
     var inComment = false;
@@ -587,13 +703,16 @@
     var str = "";
     var space = step != null && typeof step === "string" ? step : "\t";
     var shift = ["\n"];
+
     for (var si = 0; si < 100; si += 1) {
       shift.push(shift[si] + space);
     }
+
     for (var ix = 0; ix < len; ix += 1) {
       if (ar[ix].search(/<!/) > -1) {
         str += shift[deep] + ar[ix];
         inComment = true;
+
         if (ar[ix].search(/-->/) > -1 || ar[ix].search(/\]>/) > -1 || ar[ix].search(/!DOCTYPE/) > -1) {
           inComment = false;
         }
@@ -602,6 +721,7 @@
         inComment = false;
       } else if (/^<\w/.exec(ar[ix - 1]) && /^<\/\w/.exec(ar[ix]) && /^<[\w:\-\.\,]+/.exec(ar[ix - 1]) == /^<\/[\w:\-\.\,]+/.exec(ar[ix])[0].replace("/", "")) {
         str += ar[ix];
+
         if (!inComment) {
           deep -= 1;
         }
@@ -621,10 +741,13 @@
         str += ar[ix];
       }
     }
+
     return str[0] === "\n" ? str.slice(1) : str;
   }
+
   var document = win.document;
   var svgNS$1 = "http://www.w3.org/2000/svg";
+
   var shadowFilter = function shadowFilter() {
     var id_name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "shadow";
     var defs = document.createElementNS(svgNS$1, "defs");
@@ -662,18 +785,22 @@
     filter.appendChild(merge);
     return defs;
   };
-  function renderDiagrams (graph, renderGroup) {
+
+  function renderDiagrams(graph, renderGroup) {
     if (graph["re:diagrams"] === undefined) {
       return;
     }
+
     if (graph["re:diagrams"].length === 0) {
       return;
     }
+
     Array.from(graph["re:diagrams"]).forEach(function (instruction) {
       if ("re:diagram_lines" in instruction === true) {
         instruction["re:diagram_lines"].forEach(function (crease) {
           var creaseClass = "re:diagram_line_classes" in crease ? crease["re:diagram_line_classes"].join(" ") : "valley";
           var pts = crease["re:diagram_line_coords"];
+
           if (pts !== undefined) {
             var l = line(pts[0][0], pts[0][1], pts[1][0], pts[1][1]);
             l.setAttribute("class", creaseClass);
@@ -681,6 +808,7 @@
           }
         });
       }
+
       if ("re:diagram_arrows" in instruction === true) {
         var r = bounding_rect(graph);
         var vmin = r[2] > r[3] ? r[3] : r[2];
@@ -693,12 +821,15 @@
           if (arrowInst["re:diagram_arrow_coords"].length === 2) {
             var p = arrowInst["re:diagram_arrow_coords"];
             var side = p[0][0] < p[1][0];
+
             if (Math.abs(p[0][0] - p[1][0]) < 0.1) {
               side = p[0][1] < p[1][1] ? p[0][0] < 0.5 : p[0][0] > 0.5;
             }
+
             if (Math.abs(p[0][1] - p[1][1]) < 0.1) {
               side = p[0][0] < p[1][0] ? p[0][1] > 0.5 : p[0][1] < 0.5;
             }
+
             prefs.side = side;
             var arrow = arcArrow(p[0], p[1], prefs);
             renderGroup.appendChild(arrow);
@@ -707,27 +838,33 @@
       }
     });
   }
+
   var DISPLAY_NAME = {
     vertices: "vertices",
     edges: "creases",
     faces: "faces",
     boundaries: "boundaries"
   };
+
   var svgFaces = function svgFaces(graph) {
     if ("faces_vertices" in graph === true) {
       return svgFacesVertices(graph);
     }
+
     if ("faces_edges" in graph === true) {
       return svgFacesEdges(graph);
     }
+
     return [];
   };
+
   var components = {
     vertices: svgVertices,
     edges: svgEdges,
     faces: svgFaces,
     boundaries: svgBoundaries
   };
+
   var all_classes = function all_classes(graph) {
     var file_classes = (graph.file_classes != null ? graph.file_classes : []).join(" ");
     var frame_classes = (graph.frame_classes != null ? graph.frame_classes : []).join(" ");
@@ -735,9 +872,25 @@
       return s !== "";
     }).join(" ");
   };
+
+  var clean_number = function clean_number(num) {
+    var places = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 14;
+    return parseFloat(num.toFixed(places));
+  };
+
   var fold_to_svg = function fold_to_svg(fold) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     var graph = fold;
+
+    if (graph.vertices_coords != null) {
+      graph.vertices_coordsPreClean = graph.vertices_coords;
+      graph.vertices_coords = JSON.parse(JSON.stringify(graph.vertices_coords)).map(function (v) {
+        return v.map(function (n) {
+          return clean_number(n);
+        });
+      });
+    }
+
     var o = {
       defaults: true,
       width: "500px",
@@ -747,18 +900,22 @@
       shadows: false,
       padding: 0,
       viewBox: null,
+      diagram: true,
       boundaries: true,
       faces: true,
       edges: true,
       vertices: false
     };
     Object.assign(o, options);
+
     if (o.frame != null) {
       graph = flatten_frame(fold, o.frame);
     }
+
     if (o.svg == null) {
       o.svg = svg();
     }
+
     o.svg.setAttribute("class", all_classes(graph));
     o.svg.setAttribute("width", o.width);
     o.svg.setAttribute("height", o.height);
@@ -777,11 +934,13 @@
         return groups[key].appendChild(a);
       });
     });
-    if ("re:diagrams" in graph) {
+
+    if ("re:diagrams" in graph && o.diagram) {
       var instructionLayer = group();
       o.svg.appendChild(instructionLayer);
       renderDiagrams(graph, instructionLayer);
     }
+
     if (o.shadows) {
       var shadow_id = "face_shadow";
       var filter = shadowFilter(shadow_id);
@@ -790,12 +949,20 @@
         return f.setAttribute("filter", "url(#".concat(shadow_id, ")"));
       });
     }
+
     var rect = bounding_rect(graph);
+
     if (o.viewBox != null) {
-      setViewBox.apply(void 0, [o.svg].concat(_toConsumableArray(o.viewBox), [o.padding]));
+      setViewBox.apply(void 0, [o.svg].concat(_toConsumableArray$1(o.viewBox), [o.padding]));
     } else {
-      setViewBox.apply(void 0, [o.svg].concat(_toConsumableArray(rect), [o.padding]));
+      setViewBox.apply(void 0, [o.svg].concat(_toConsumableArray$1(rect), [o.padding]));
     }
+
+    if (graph.vertices_coordsPreClean != null) {
+      graph.vertices_coords = graph.vertices_coordsPreClean;
+      delete graph.vertices_coordsPreClean;
+    }
+
     if (o.inlineStyle) {
       var vmin = rect[2] > rect[3] ? rect[3] : rect[2];
       var innerStyle = "\nsvg { --crease-width: ".concat(vmin * 0.005, "; }\n").concat(o.stylesheet);
@@ -803,14 +970,17 @@
       var cdata = docu.createCDATASection(innerStyle);
       styleElement.appendChild(cdata);
     }
+
     var stringified = new win.XMLSerializer().serializeToString(o.svg);
     var beautified = vkXML(stringified);
     return beautified;
   };
+
   var getObject = function getObject(input) {
-    if (_typeof(input) === "object" && input !== null) {
+    if (_typeof$1(input) === "object" && input !== null) {
       return input;
     }
+
     if (typeof input === "string" || input instanceof String) {
       try {
         var obj = JSON.parse(input);
@@ -819,8 +989,10 @@
         throw error;
       }
     }
+
     throw new Error("couldn't recognize input. looking for string or object");
   };
+
   var svg$1 = function svg(input, options) {
     try {
       var fold = getObject(input);
@@ -829,8 +1001,10 @@
       throw error;
     }
   };
+
   var webGL = function webGL() {};
-  var drawFOLD = {
+
+  var foldDraw = {
     svg: svg$1,
     webGL: webGL,
     components: {
@@ -846,156 +1020,176 @@
     }
   };
 
-  const get_file_value = function (fold_file, key_suffix) {
-    if (fold_file[`file_${key_suffix}`] == null) { return ""; }
-    return fold_file[`file_${key_suffix}`];
+  var get_file_value = function get_file_value(fold_file, key_suffix) {
+    if (fold_file["file_".concat(key_suffix)] == null) {
+      return "";
+    }
+
+    return fold_file["file_".concat(key_suffix)];
   };
-  const add_frame_class = function (frame, class_name) {
-    if (frame.frame_classes == null) { frame.frame_classes = []; }
+  var add_frame_class = function add_frame_class(frame, class_name) {
+    if (frame.frame_classes == null) {
+      frame.frame_classes = [];
+    }
+
     if (!frame.frame_classes.includes(class_name)) {
       frame.frame_classes.push(class_name);
     }
   };
-  const bounding_rect$1 = function (graph) {
-    if ("vertices_coords" in graph === false
-      || graph.vertices_coords.length <= 0) {
+  var bounding_rect$1 = function bounding_rect(graph) {
+    if ("vertices_coords" in graph === false || graph.vertices_coords.length <= 0) {
       return [0, 0, 0, 0];
     }
-    const dimension = graph.vertices_coords[0].length;
-    const min = Array(dimension).fill(Infinity);
-    const max = Array(dimension).fill(-Infinity);
-    graph.vertices_coords.forEach(v => v.forEach((n, i) => {
-      if (n < min[i]) { min[i] = n; }
-      if (n > max[i]) { max[i] = n; }
-    }));
-    return (isNaN(min[0]) || isNaN(min[1]) || isNaN(max[0]) || isNaN(max[1])
-      ? [0, 0, 0, 0]
-      : [min[0], min[1], max[0] - min[0], max[1] - min[1]]);
+
+    var dimension = graph.vertices_coords[0].length;
+    var min = Array(dimension).fill(Infinity);
+    var max = Array(dimension).fill(-Infinity);
+    graph.vertices_coords.forEach(function (v) {
+      return v.forEach(function (n, i) {
+        if (n < min[i]) {
+          min[i] = n;
+        }
+
+        if (n > max[i]) {
+          max[i] = n;
+        }
+      });
+    });
+    return isNaN(min[0]) || isNaN(min[1]) || isNaN(max[0]) || isNaN(max[1]) ? [0, 0, 0, 0] : [min[0], min[1], max[0] - min[0], max[1] - min[1]];
   };
-  const final_frame_of_class = function (fold_file, frame_class) {
-    const matching_frames = fold_file.file_frames
-      .filter(f => f.frame_classes.includes(frame_class));
-    if (matching_frames.length === 0) { return {}; }
-    const matching_final = matching_frames
-      .filter(f => f.frame_classes.includes("final"))
-      .shift();
-    if (matching_final !== undefined) { return matching_final; }
+  var final_frame_of_class = function final_frame_of_class(fold_file, frame_class) {
+    var matching_frames = fold_file.file_frames.filter(function (f) {
+      return f.frame_classes.includes(frame_class);
+    });
+
+    if (matching_frames.length === 0) {
+      return {};
+    }
+
+    var matching_final = matching_frames.filter(function (f) {
+      return f.frame_classes.includes("final");
+    }).shift();
+
+    if (matching_final !== undefined) {
+      return matching_final;
+    }
+
     return matching_frames[matching_frames.length - 1];
   };
-  const clone$1 = function (o) {
-    let newO;
-    let i;
-    if (typeof o !== "object") {
+  var clone$1 = function clone(o) {
+    var newO;
+    var i;
+
+    if (_typeof(o) !== "object") {
       return o;
     }
+
     if (!o) {
       return o;
     }
+
     if (Object.prototype.toString.apply(o) === "[object Array]") {
       newO = [];
+
       for (i = 0; i < o.length; i += 1) {
-        newO[i] = clone$1(o[i]);
+        newO[i] = clone(o[i]);
       }
+
       return newO;
     }
+
     newO = {};
+
     for (i in o) {
       if (o.hasOwnProperty(i)) {
-        newO[i] = clone$1(o[i]);
+        newO[i] = clone(o[i]);
       }
     }
+
     return newO;
   };
 
-  const buildPage = function (fold, options) {
-    const fold_file = clone$1(fold);
-    const steps = fold_file.file_frames
-      .filter(frame => frame.frame_classes.includes("diagrams"));
-    const finalCP = final_frame_of_class(fold_file, "creasePattern");
-    const finalFoldedForm = final_frame_of_class(fold_file, "foldedForm");
-    steps.forEach(s => add_frame_class(s, "step"));
+  var buildPage = function buildPage(fold, options) {
+    var fold_file = clone$1(fold);
+    var steps = fold_file.file_frames.filter(function (frame) {
+      return frame.frame_classes.includes("diagrams");
+    });
+    var finalCP = final_frame_of_class(fold_file, "creasePattern");
+    var finalFoldedForm = final_frame_of_class(fold_file, "foldedForm");
+    steps.forEach(function (s) {
+      return add_frame_class(s, "step");
+    });
     add_frame_class(finalCP, "header");
     add_frame_class(finalFoldedForm, "header");
-    let fold_time = Math.floor(steps.length / 4);
-    if (fold_time === 0) { fold_time = 1; }
-    const foldedFormBounds = bounding_rect$1(finalFoldedForm);
-    const size_ratio_float = (foldedFormBounds[2] > foldedFormBounds[3]
-      ? foldedFormBounds[2] : foldedFormBounds[3]);
-    const size_ratio = `1 : ${size_ratio_float === 1
-    ? size_ratio_float
-    : size_ratio_float.toFixed(2)}`;
-    const sequenceSVGs = steps
-      .map(cp => drawFOLD.svg(cp, {
+    var fold_time = Math.floor(steps.length / 4);
+
+    if (fold_time === 0) {
+      fold_time = 1;
+    }
+
+    var foldedFormBounds = bounding_rect$1(finalFoldedForm);
+    var size_ratio_float = foldedFormBounds[2] > foldedFormBounds[3] ? foldedFormBounds[2] : foldedFormBounds[3];
+    var size_ratio = "1 : ".concat(size_ratio_float === 1 ? size_ratio_float : size_ratio_float.toFixed(2));
+    var sequenceSVGs = steps.map(function (cp) {
+      return foldDraw.svg(cp, {
         inlineStyle: false,
         diagram: true,
         padding: 0.15
-      }));
-    const cpSVG = drawFOLD.svg(finalCP, {
+      });
+    });
+    var cpSVG = foldDraw.svg(finalCP, {
       inlineStyle: false,
       diagram: false,
       padding: 0.02
     });
-    const finalSVG = drawFOLD.svg(finalFoldedForm, {
+    var finalSVG = foldDraw.svg(finalFoldedForm, {
       inlineStyle: false,
       diagram: false,
       padding: 0.02
     });
     finalFoldedForm.frame_classes.push("scaled");
-    const finalSVGScaled = drawFOLD.svg(finalFoldedForm, {
+    var finalSVGScaled = foldDraw.svg(finalFoldedForm, {
       inlineStyle: false,
       diagram: false,
-      viewBox: [
-        foldedFormBounds[0],
-        foldedFormBounds[1] - (1 - foldedFormBounds[3]),
-        1, 1]
+      viewBox: [foldedFormBounds[0], foldedFormBounds[1] - (1 - foldedFormBounds[3]), 1, 1]
     });
-    const writtenInstructions = sequenceSVGs
-      .map((svg, i) => steps[i]["re:diagrams"])
-      .filter(a => a != null)
-      .map(seq => seq.map(a => a["re:diagram_instructions"])
-        .filter(a => a != null)
-        .map(inst => inst.en)
-        .join("\n"));
-    const sequenceHTML = sequenceSVGs
-      .reduce((prev, curr, i) => `${prev}
-<div class="step">
-  <h3 class="number">${(i + 1)}</h3>
-  ${curr}
-  <p>${(writtenInstructions[i] || "")}</p>
-</div>
-`, "");
-    return `<html>
-<head>
-<title>Rabbit Ear</title>
-<style>
-${options.style}
-</style>
-</head>
-<body>
-  <div class="page-grid">
-    <div class="header">
-      ${cpSVG}
-      ${finalSVG}
-      ${finalSVGScaled}
-      <h1 class="title">${get_file_value(fold_file, "title")}</h1>
-      <p class="author">designed by ${get_file_value(fold_file, "author")}</p>
-      <p class="description">${get_file_value(fold_file, "description")}</p>
-      <p class="size-ratio">ratio ${size_ratio}</p>
-      <p class="fold-time">fold time<br>${fold_time} ${(fold_time === 1 ? "minute" : "minutes")}</p>
-      <p class="attribution small">rabbitEar.org</p>
-    </div>
-    ${sequenceHTML}
-  </div>
-</body>
-</html>`;
+    var writtenInstructions = sequenceSVGs.map(function (svg, i) {
+      return steps[i]["re:diagrams"];
+    }).filter(function (a) {
+      return a != null;
+    }).map(function (seq) {
+      return seq.map(function (a) {
+        return a["re:diagram_instructions"];
+      }).filter(function (a) {
+        return a != null;
+      }).map(function (inst) {
+        return inst.en;
+      }).join("\n");
+    });
+    var sequenceHTML = sequenceSVGs.reduce(function (prev, curr, i) {
+      return "".concat(prev, "\n<div class=\"step\">\n  <h3 class=\"number\">").concat(i + 1, "</h3>\n  ").concat(curr, "\n  <p>").concat(writtenInstructions[i] || "", "</p>\n</div>\n");
+    }, "");
+    return "<html>\n<head>\n<title>Rabbit Ear</title>\n<style>\n".concat(options.style, "\n</style>\n</head>\n<body>\n  <div class=\"page-grid\">\n    <div class=\"header\">\n      ").concat(cpSVG, "\n      ").concat(finalSVG, "\n      ").concat(finalSVGScaled, "\n      <h1 class=\"title\">").concat(get_file_value(fold_file, "title"), "</h1>\n      <p class=\"author\">designed by ").concat(get_file_value(fold_file, "author"), "</p>\n      <p class=\"description\">").concat(get_file_value(fold_file, "description"), "</p>\n      <p class=\"size-ratio\">ratio ").concat(size_ratio, "</p>\n      <p class=\"fold-time\">fold time<br>").concat(fold_time, " ").concat(fold_time === 1 ? "minute" : "minutes", "</p>\n      <p class=\"attribution small\">rabbitEar.org</p>\n    </div>\n    ").concat(sequenceHTML, "\n  </div>\n</body>\n</html>");
   };
 
-  const DiagramMaker = function (fold_file, options = {}) {
-    if (fold_file.length === 0) { return ""; }
-    const o = {};
+  var DiagramMaker = function DiagramMaker(fold_file) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    if (fold_file.length === 0) {
+      return "";
+    }
+
+    var o = {};
     Object.assign(o, options);
-    if (o.shadows == null) { o.shadows = false; }
-    if (o.style == null) { o.style = defaultPageStyle; }
+
+    if (o.shadows == null) {
+      o.shadows = false;
+    }
+
+    if (o.style == null) {
+      o.style = defaultPageStyle;
+    }
+
     return buildPage(fold_file, o);
   };
 
