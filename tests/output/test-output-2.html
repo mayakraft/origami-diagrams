@@ -2,52 +2,57 @@
 <head>
 <title>Rabbit Ear</title>
 <style>
+/*
+@page {
+  size: 8.5in 11in;
+  margin: 70pt 60pt 70pt;
+}
+*/
 html, body {
   width: 100%;
   margin: 0;
 }
 body {
-  font-family: 'Avenir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 .page-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 250px 250px 290px 290px;
-  grid-auto-rows: 350px;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: 430px 300px 300px;
+  grid-auto-rows: 348px;
 }
 div.header {
-  height: 400px;
-  padding: 1rem;
-  grid-column-start: 2;
-  grid-column-end: 5;
-  grid-row-start: 1;
-  grid-row-end: 3;
+  grid-column-start: 1;
+  grid-column-end: 4;
   /* -webkit-print-color-adjust: exact; */
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 58% 42%;
   grid-template-rows: 1fr 1fr 1fr 1fr;
+  height: calc(380px - 5rem - 1rem);
   justify-items: center;
   align-items: center;
 }
+/* give it a dash border */
+div.header {
+  padding: 2.5rem;
+  border-width: 5px;
+  border-style: dashed;
+  border-color: black;
+  box-shadow: inset 5px 5px 10px #ccc;
+}
 h1 {
-  font-size: 3.5rem;
+  font-size: 3.3rem;
   /*margin-bottom: 2rem;*/
-  text-align: left;
+  text-align: center;
 }
 p {
-  font-size: 1rem;
+  font-size: 1.3rem;
   text-align: center;
   width: 100%;
   /*margin: 1rem 0;*/
 }
 h1, p {
   margin: 0;
-}
-h1 {
-  width: 100%;
-  border-width: 0 0 1px 0;
-  border-style: solid;
-  border-color: black;
 }
 .small {
   font-size: 70%;
@@ -63,30 +68,30 @@ div.step .number {
   left: 0;
   width: 2rem;
   height: 2rem;
+  background-color: white;
+  border: 3px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1rem;
-  font-weight: 400;
 }
 div.step svg {
   margin: auto;
 }
 
 .title {
-  grid-column-start: 1;
-  grid-column-end: 5;
+  grid-column-start: 2;
+  grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 2;
 }
 .author {
-  grid-column-start: 1;
+  grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 2;
   grid-row-end: 3;
-  justify-self: start;
-  align-self: start;
-  text-align: left;
+}
+.description {
+  display: none;
 }
 .fold-time {
   grid-column-start: 2;
@@ -94,60 +99,45 @@ div.step svg {
   grid-row-start: 3;
   grid-row-end: 4;
 }
+.size-ratio {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 4;
+  grid-row-end: 5;
+  align-self: start;
+}
 .attribution {
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 4;
   grid-row-end: 5;
-}
-
-svg.step {
-  height: 210px;
-  width: 210px;
-}
-svg.header.creasePattern {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 3;
-  grid-row-end: 5;
-  justify-self: start;
-  width: 200px;
-  height: 200px;
+  align-self: end;
 }
 svg.header.foldedForm {
-  grid-column-start: 3;
-  grid-column-end: 5;
-  grid-row-start: 2;
-  grid-row-end: 5;
-  justify-self: end;
-  width: 320px;
-  height: 320px;
-  z-index: 3;
-}
-svg.header.foldedForm.copy {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 3;
-  grid-row-end: 5;
-  justify-self: start;
-  width: 200px;
-  height: 200px;
-}
-
-div.step:nth-of-type(2) {
   grid-column-start: 1;
   grid-column-end: 2;
   grid-row-start: 1;
-  grid-row-end: 2;
-  align-self: end;
+  grid-row-end: 5;
+  margin-left: 150px;
+  margin-top: 30px;
+  z-index: 3;
 }
 
-div.step:nth-of-type(3) {
+svg.header.creasePattern, svg.header.foldedForm {
   grid-column-start: 1;
   grid-column-end: 2;
-  grid-row-start: 2;
-  grid-row-end: 3;
-  align-self: end;
+  grid-row-start: 1;
+  grid-row-end: 5;
+  justify-self: start;
+  width: 280px;
+  height: 280px;
+}
+svg.step {
+  height: 250px;
+  width: 250px;
+}
+svg.header.foldedForm.scaled {
+  display: none;
 }
 
 /*
@@ -156,7 +146,7 @@ div.step:nth-of-type(3) {
  * --------------------
  */
 
-svg { --crease-width: 0.005; }
+svg { --crease-width: 0.015; }
 svg * {
   stroke-width: var(--crease-width);
   stroke-linecap: round;
@@ -168,122 +158,144 @@ polygon { fill: none; stroke: none; stroke-linejoin: bevel; }
 .mountain { stroke: #000; }
 .valley {
   stroke: #000;
-  stroke-dasharray: calc(var(--crease-width)*2) calc(var(--crease-width)*4);
+  stroke-dasharray:calc(var(--crease-width)*1.333) calc(var(--crease-width)*2);
 }
 .foldedForm .boundary {fill: none; stroke: none;}
 .foldedForm .faces polygon { stroke: #000; }
-.foldedForm .faces .front { fill: white; }
-.foldedForm .faces .back { fill: #dfd8d0; }
+.foldedForm .faces .front { fill: linen; }
+.foldedForm .faces .back { fill: peru; }  /* #DDD; */
 .foldedForm .creases line { stroke: none; }
 .foldedForm .creases { display: none; opacity: 0; }
 .creasePattern .faces { display: none; opacity: 0; }
-.creasePattern .boundary { fill: white; }
-.creasePattern .valley { stroke-dasharray: initial; }
-
-svg.header.foldedForm.copy .faces .front { fill: black;}
-svg.header.foldedForm.copy .faces .back { fill: black;}
+.creasePattern .boundary { fill: linen; }
 
 </style>
 </head>
 <body>
   <div class="page-grid">
     <div class="header">
-      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="header final creasePattern" width="500px" height="500px" viewBox="-0.02 -0.02 1.04 1.04">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="singleModel singleModel creasePattern header" width="500px" height="500px" viewBox="-0.02 -0.02 1.04 1.04">
 	<style type="text/css"/>
 	<g class="boundaries">
-		<polygon points="0,0 0.5,0 1,0 1,0.5 1,1 0.85,1 0,1 0,0.15 " class="boundary"/>
+		<polygon points="1,0 1,0.6199144678301539 1,1 0.22279186957032737,1 0,1 0,0.7772080914113247 0,0.7235657611274742 0,0.12147218174245705 0,0 0.4306318621103266,0 " class="boundary"/>
 	</g>
 	<g class="faces">
-		<polygon points="0,0.15 0,0 0.5,0 1,0.5 1,1 0.85,1 " id="1" class="front"/>
-		<polygon points="0.5,0 1,0 1,0.5 " id="0" class="back"/>
-		<polygon points="0.85,1 0,1 0,0.15 " id="2" class="back"/>
+		<polygon points="0,0.7772080914113247 0,0.7235657611274742 0.36726863957084377,0.3045344020584667 1,0.6199144678301539 1,1 0.22279186957032737,1 " id="3" class="front"/>
+		<polygon points="0.4306318621103266,0 1,0 1,0.6199144678301539 0.36726863957084377,0.3045344020584667 " id="0" class="back"/>
+		<polygon points="0.36726863957084377,0.3045344020584667 0,0.12147218174245705 0,0 0.4306318621103266,0 " id="1" class="front"/>
+		<polygon points="0,0.7235657611274742 0,0.12147218174245705 0.36726863957084377,0.3045344020584667 " id="2" class="back"/>
+		<polygon points="0.22279186957032737,1 0,1 0,0.7772080914113247 " id="4" class="back"/>
 	</g>
 	<g class="creases">
-		<line x2="0.5" id="0" class="boundary"/>
-		<line x1="1" x2="0.5" id="1" class="boundary"/>
-		<line x1="1" x2="1" y2="0.5" id="2" class="boundary"/>
-		<line x1="1" y1="1" x2="1" y2="0.5" id="3" class="boundary"/>
-		<line x1="0.5" x2="1" y2="0.5" id="4" class="valley"/>
-		<line x1="1" y1="1" x2="0.85" y2="1" id="5" class="boundary"/>
-		<line y1="1" x2="0.85" y2="1" id="6" class="boundary"/>
-		<line y2="0.15" id="7" class="boundary"/>
-		<line y1="1" y2="0.15" id="8" class="boundary"/>
-		<line x1="0.85" y1="1" y2="0.15" id="9" class="valley"/>
+		<line x1="1" y1="0" x2="1" y2="0.6199144678301539" id="0" class="boundary"/>
+		<line x1="1" y1="1" x2="1" y2="0.6199144678301539" id="1" class="boundary"/>
+		<line x1="0" y1="0" x2="0" y2="0.12147218174245705" id="2" class="boundary"/>
+		<line x1="0" y1="0" x2="0.4306318621103266" y2="0" id="3" class="boundary"/>
+		<line x1="1" y1="0" x2="0.4306318621103266" y2="0" id="4" class="boundary"/>
+		<line x1="1" y1="0.6199144678301539" x2="0.36726863957084377" y2="0.3045344020584667" id="5" class="valley"/>
+		<line x1="0" y1="0.12147218174245705" x2="0.36726863957084377" y2="0.3045344020584667" id="6" class="valley"/>
+		<line x1="0.4306318621103266" y1="0" x2="0.36726863957084377" y2="0.3045344020584667" id="7" class="mountain"/>
+		<line x1="0" y1="0.12147218174245705" x2="0" y2="0.7235657611274742" id="8" class="boundary"/>
+		<line x1="0.36726863957084377" y1="0.3045344020584667" x2="0" y2="0.7235657611274742" id="9" class="valley"/>
+		<line x1="1" y1="1" x2="0.22279186957032737" y2="1" id="10" class="boundary"/>
+		<line x1="0" y1="1" x2="0.22279186957032737" y2="1" id="11" class="boundary"/>
+		<line x1="0" y1="1" x2="0" y2="0.7772080914113247" id="12" class="boundary"/>
+		<line x1="0" y1="0.7235657611274742" x2="0" y2="0.7772080914113247" id="13" class="boundary"/>
+		<line x1="0.22279186957032737" y1="1" x2="0" y2="0.7772080914113247" id="14" class="valley"/>
 	</g>
+	<g/>
 </svg>
-      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="header final foldedForm" width="500px" height="500px" viewBox="-0.02 -0.02 1.04 1.04">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="singleModel foldedForm diagrams step header" width="500px" height="500px" viewBox="-0.020000000000001 0.284534402058463 1.04 0.735465597941533">
 	<style type="text/css"/>
 	<g class="boundaries">
-		<polygon points="0,0 0.5,0 0.5,0.5 1,0.5 1,1 0.85,1 0.85,0.15 0,0.15 " class="boundary"/>
+		<polygon points="0.50499756790925,0.99309879179002 0.999999999999998,0.619914467830148 0.999999999999999,0.999999999999994 0.222791869570327,0.999999999999996 0.222791908588671,0.777208130429673 -1e-15,0.777208091411322 3e-15,0.723565761127475 0.596897526270102,0.644635276083367 0.537118655746639,0.750380146295645 0.162241793283799,0.538457663640729 " class="boundary"/>
 	</g>
 	<g class="faces">
-		<polygon points="0,0.15 0,0 0.5,0 1,0.5 1,1 0.85,1 " id="1" class="front"/>
-		<polygon points="0.5,0 0.5,0.5 1,0.5 " id="0" class="back"/>
-		<polygon points="0.85,1 0.85,0.15 0,0.15 " id="2" class="back"/>
+		<polygon points="-1e-15,0.777208091411322 3e-15,0.723565761127475 0.367268639570841,0.304534402058463 0.999999999999998,0.619914467830148 0.999999999999999,0.999999999999994 0.222791869570327,0.999999999999996 " id="3" class="front"/>
+		<polygon points="0.162241793283799,0.538457663640729 0.50499756790925,0.99309879179002 0.999999999999998,0.619914467830148 0.367268639570841,0.304534402058463 " id="0" class="back"/>
+		<polygon points="0.367268639570841,0.304534402058463 0.596897526270102,0.644635276083367 0.537118655746639,0.750380146295645 0.162241793283799,0.538457663640729 " id="1" class="front"/>
+		<polygon points="3e-15,0.723565761127475 0.596897526270102,0.644635276083367 0.367268639570841,0.304534402058463 " id="2" class="back"/>
+		<polygon points="0.222791869570327,0.999999999999996 0.222791908588671,0.777208130429673 -1e-15,0.777208091411322 " id="4" class="back"/>
 	</g>
 	<g class="creases">
-		<line x2="0.5" id="0" class="boundary"/>
-		<line x1="0.5" y1="0.5" x2="0.5" id="1" class="boundary"/>
-		<line x1="0.5" y1="0.5" x2="1" y2="0.5" id="2" class="boundary"/>
-		<line x1="1" y1="1" x2="1" y2="0.5" id="3" class="boundary"/>
-		<line x1="0.5" x2="1" y2="0.5" id="4" class="valley"/>
-		<line x1="1" y1="1" x2="0.85" y2="1" id="5" class="boundary"/>
-		<line x1="0.85" y1="0.15" x2="0.85" y2="1" id="6" class="boundary"/>
-		<line y2="0.15" id="7" class="boundary"/>
-		<line x1="0.85" y1="0.15" y2="0.15" id="8" class="boundary"/>
-		<line x1="0.85" y1="1" y2="0.15" id="9" class="valley"/>
+		<line x1="0.50499756790925" y1="0.99309879179002" x2="0.999999999999998" y2="0.619914467830148" id="0" class="boundary"/>
+		<line x1="0.999999999999999" y1="0.999999999999994" x2="0.999999999999998" y2="0.619914467830148" id="1" class="boundary"/>
+		<line x1="0.537118655746639" y1="0.750380146295645" x2="0.596897526270102" y2="0.644635276083367" id="2" class="boundary"/>
+		<line x1="0.537118655746639" y1="0.750380146295645" x2="0.162241793283799" y2="0.538457663640729" id="3" class="boundary"/>
+		<line x1="0.50499756790925" y1="0.99309879179002" x2="0.162241793283799" y2="0.538457663640729" id="4" class="boundary"/>
+		<line x1="0.999999999999998" y1="0.619914467830148" x2="0.367268639570841" y2="0.304534402058463" id="5" class="valley"/>
+		<line x1="0.596897526270102" y1="0.644635276083367" x2="0.367268639570841" y2="0.304534402058463" id="6" class="valley"/>
+		<line x1="0.162241793283799" y1="0.538457663640729" x2="0.367268639570841" y2="0.304534402058463" id="7" class="mountain"/>
+		<line x1="0.596897526270102" y1="0.644635276083367" x2="3e-15" y2="0.723565761127475" id="8" class="boundary"/>
+		<line x1="0.367268639570841" y1="0.304534402058463" x2="3e-15" y2="0.723565761127475" id="9" class="valley"/>
+		<line x1="0.999999999999999" y1="0.999999999999994" x2="0.222791869570327" y2="0.999999999999996" id="10" class="boundary"/>
+		<line x1="0.222791908588671" y1="0.777208130429673" x2="0.222791869570327" y2="0.999999999999996" id="11" class="boundary"/>
+		<line x1="0.222791908588671" y1="0.777208130429673" x2="-1e-15" y2="0.777208091411322" id="12" class="boundary"/>
+		<line x1="3e-15" y1="0.723565761127475" x2="-1e-15" y2="0.777208091411322" id="13" class="boundary"/>
+		<line x1="0.222791869570327" y1="0.999999999999996" x2="-1e-15" y2="0.777208091411322" id="14" class="valley"/>
 	</g>
+	<g/>
 </svg>
-      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="header copy final foldedForm" width="500px" height="500px" viewBox="-0.02 -0.02 1.04 1.04">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="singleModel foldedForm diagrams step header scaled" width="500px" height="500px" viewBox="-1e-15 -4.052314039881821e-15 1 1">
 	<style type="text/css"/>
 	<g class="boundaries">
-		<polygon points="0,0 0.5,0 0.5,0.5 1,0.5 1,1 0.85,1 0.85,0.15 0,0.15 " class="boundary"/>
+		<polygon points="0.50499756790925,0.99309879179002 0.999999999999998,0.619914467830148 0.999999999999999,0.999999999999994 0.222791869570327,0.999999999999996 0.222791908588671,0.777208130429673 -1e-15,0.777208091411322 3e-15,0.723565761127475 0.596897526270102,0.644635276083367 0.537118655746639,0.750380146295645 0.162241793283799,0.538457663640729 " class="boundary"/>
 	</g>
 	<g class="faces">
-		<polygon points="0,0.15 0,0 0.5,0 1,0.5 1,1 0.85,1 " id="1" class="front"/>
-		<polygon points="0.5,0 0.5,0.5 1,0.5 " id="0" class="back"/>
-		<polygon points="0.85,1 0.85,0.15 0,0.15 " id="2" class="back"/>
+		<polygon points="-1e-15,0.777208091411322 3e-15,0.723565761127475 0.367268639570841,0.304534402058463 0.999999999999998,0.619914467830148 0.999999999999999,0.999999999999994 0.222791869570327,0.999999999999996 " id="3" class="front"/>
+		<polygon points="0.162241793283799,0.538457663640729 0.50499756790925,0.99309879179002 0.999999999999998,0.619914467830148 0.367268639570841,0.304534402058463 " id="0" class="back"/>
+		<polygon points="0.367268639570841,0.304534402058463 0.596897526270102,0.644635276083367 0.537118655746639,0.750380146295645 0.162241793283799,0.538457663640729 " id="1" class="front"/>
+		<polygon points="3e-15,0.723565761127475 0.596897526270102,0.644635276083367 0.367268639570841,0.304534402058463 " id="2" class="back"/>
+		<polygon points="0.222791869570327,0.999999999999996 0.222791908588671,0.777208130429673 -1e-15,0.777208091411322 " id="4" class="back"/>
 	</g>
 	<g class="creases">
-		<line x2="0.5" id="0" class="boundary"/>
-		<line x1="0.5" y1="0.5" x2="0.5" id="1" class="boundary"/>
-		<line x1="0.5" y1="0.5" x2="1" y2="0.5" id="2" class="boundary"/>
-		<line x1="1" y1="1" x2="1" y2="0.5" id="3" class="boundary"/>
-		<line x1="0.5" x2="1" y2="0.5" id="4" class="valley"/>
-		<line x1="1" y1="1" x2="0.85" y2="1" id="5" class="boundary"/>
-		<line x1="0.85" y1="0.15" x2="0.85" y2="1" id="6" class="boundary"/>
-		<line y2="0.15" id="7" class="boundary"/>
-		<line x1="0.85" y1="0.15" y2="0.15" id="8" class="boundary"/>
-		<line x1="0.85" y1="1" y2="0.15" id="9" class="valley"/>
+		<line x1="0.50499756790925" y1="0.99309879179002" x2="0.999999999999998" y2="0.619914467830148" id="0" class="boundary"/>
+		<line x1="0.999999999999999" y1="0.999999999999994" x2="0.999999999999998" y2="0.619914467830148" id="1" class="boundary"/>
+		<line x1="0.537118655746639" y1="0.750380146295645" x2="0.596897526270102" y2="0.644635276083367" id="2" class="boundary"/>
+		<line x1="0.537118655746639" y1="0.750380146295645" x2="0.162241793283799" y2="0.538457663640729" id="3" class="boundary"/>
+		<line x1="0.50499756790925" y1="0.99309879179002" x2="0.162241793283799" y2="0.538457663640729" id="4" class="boundary"/>
+		<line x1="0.999999999999998" y1="0.619914467830148" x2="0.367268639570841" y2="0.304534402058463" id="5" class="valley"/>
+		<line x1="0.596897526270102" y1="0.644635276083367" x2="0.367268639570841" y2="0.304534402058463" id="6" class="valley"/>
+		<line x1="0.162241793283799" y1="0.538457663640729" x2="0.367268639570841" y2="0.304534402058463" id="7" class="mountain"/>
+		<line x1="0.596897526270102" y1="0.644635276083367" x2="3e-15" y2="0.723565761127475" id="8" class="boundary"/>
+		<line x1="0.367268639570841" y1="0.304534402058463" x2="3e-15" y2="0.723565761127475" id="9" class="valley"/>
+		<line x1="0.999999999999999" y1="0.999999999999994" x2="0.222791869570327" y2="0.999999999999996" id="10" class="boundary"/>
+		<line x1="0.222791908588671" y1="0.777208130429673" x2="0.222791869570327" y2="0.999999999999996" id="11" class="boundary"/>
+		<line x1="0.222791908588671" y1="0.777208130429673" x2="-1e-15" y2="0.777208091411322" id="12" class="boundary"/>
+		<line x1="3e-15" y1="0.723565761127475" x2="-1e-15" y2="0.777208091411322" id="13" class="boundary"/>
+		<line x1="0.222791869570327" y1="0.999999999999996" x2="-1e-15" y2="0.777208091411322" id="14" class="valley"/>
 	</g>
+	<g/>
 </svg>
-      <h1 class="title">Origami</h1>
-      <p class="author">by _____________</p>
+      <h1 class="title">three-fold</h1>
+      <p class="author">designed by Robby Kraft</p>
+      <p class="description">a simple origami with three folds</p>
+      <p class="size-ratio">ratio 1 : 1</p>
       <p class="fold-time">fold time<br>1 minute</p>
-      <p class="attribution small">RabbitEar.org</p>
+      <p class="attribution small">rabbitEar.org</p>
     </div>
     
 <div class="step">
   <h3 class="number">1</h3>
-  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="step foldedForm" width="500px" height="500px" viewBox="-0.15 -0.15 1.3 1.3">
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="singleModel foldedForm diagrams step" width="500px" height="500px" viewBox="-0.15 -0.15 1.3 1.3">
 	<style type="text/css"/>
 	<g class="boundaries">
 		<polygon points="0,0 1,0 1,1 0,1 " class="boundary"/>
 	</g>
 	<g class="faces">
-		<polygon points="0,0 1,0 1,1 0,1 " id="0"/>
+		<polygon points="0,0 1,0 1,1 0,1 " id="0" class="front"/>
 	</g>
 	<g class="creases">
-		<line x2="1" id="0" class="boundary"/>
-		<line x1="1" x2="1" y2="1" id="1" class="boundary"/>
-		<line x1="1" y1="1" y2="1" id="2" class="boundary"/>
-		<line y1="1" id="3" class="boundary"/>
+		<line x1="0" y1="0" x2="1" y2="0" id="0" class="boundary"/>
+		<line x1="1" y1="0" x2="1" y2="1" id="1" class="boundary"/>
+		<line x1="1" y1="1" x2="0" y2="1" id="2" class="boundary"/>
+		<line x1="0" y1="1" x2="0" y2="0" id="3" class="boundary"/>
 	</g>
 	<g>
-		<line x1="0.5" x2="1" y2="0.5" class="valley"/>
+		<line x1="0" y1="0.12147218174245705" x2="1" y2="0.6199144678301539" class="valley"/>
 		<g>
-			<path d="M 0.95634358749346,0.010914103126634982 C 0.7590559639121872,0.043036473904689156 0.5972402756728091,0.17983703777781984 0.532742309379905,0.36903076248038025" style="fill:none;stroke:#000;stroke-width:0.02"/>
-			<polygon points="0.49878732187481833,0.3605420156041086 0.5666972968849916,0.3775195093566519 0.510914103126635,0.4563435874934601 " style="stroke:none;fill:#000"/>
+			<path d="M 0.646834616301869,0.02420671842288418 C 0.4331054775855433,0.14079710522916628 0.3024134579452506,0.3633467110586485 0.3047089104372286,0.6067973095995393" style="fill:none;stroke:#000;stroke-width:0.02"/>
+			<polygon points="0.2698153778516173,0.6095251995710893 0.3396024430228399,0.6040694196279892 0.3117234846497859,0.696523536248254 " style="stroke:none;fill:#000"/>
 		</g>
 	</g>
 </svg>
@@ -292,29 +304,29 @@ svg.header.foldedForm.copy .faces .back { fill: black;}
 
 <div class="step">
   <h3 class="number">2</h3>
-  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="step foldedForm" width="500px" height="500px" viewBox="-0.15 -0.15 1.3 1.3">
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="singleModel foldedForm diagrams step" width="500px" height="500px" viewBox="-0.246995680072368 -0.028527818257542997 1.396995680072368 1.178527818257543">
 	<style type="text/css"/>
 	<g class="boundaries">
-		<polygon points="1,1 0,1 0,0 0.5,0 0.5,0.5 1,0.5 " class="boundary"/>
+		<polygon points="-0.096995680072368,0.194597614969012 0.50499756790925,0.993098791790025 1,0.619914467830154 1,1 0,1 0,0.121472181742457 " class="boundary"/>
 	</g>
 	<g class="faces">
-		<polygon points="1,0.5 1,1 0,1 0,0 0.5,0 " id="0" class="front"/>
-		<polygon points="0.5,0 0.5,0.5 1,0.5 " id="1" class="back"/>
+		<polygon points="1,0.619914467830154 1,1 0,1 0,0.121472181742457 " id="0" class="front"/>
+		<polygon points="0,0.121472181742457 -0.096995680072368,0.194597614969012 0.50499756790925,0.993098791790025 1,0.619914467830154 " id="1" class="back"/>
 	</g>
 	<g class="creases">
-		<line x1="1" y1="1" y2="1" id="0" class="boundary"/>
-		<line y2="1" id="1" class="boundary"/>
-		<line x2="0.5" id="2" class="boundary"/>
-		<line x1="0.5" y1="0.5" x2="0.5" id="3" class="boundary"/>
-		<line x1="0.5" y1="0.5" x2="1" y2="0.5" id="4" class="boundary"/>
-		<line x1="1" y1="1" x2="1" y2="0.5" id="5" class="boundary"/>
-		<line x1="0.5" x2="1" y2="0.5" id="6" class="valley"/>
+		<line x1="-0.096995680072368" y1="0.194597614969012" x2="0.50499756790925" y2="0.993098791790025" id="0" class="boundary"/>
+		<line x1="1" y1="1" x2="0" y2="1" id="1" class="boundary"/>
+		<line x1="0.50499756790925" y1="0.993098791790025" x2="1" y2="0.619914467830154" id="2" class="boundary"/>
+		<line x1="1" y1="1" x2="1" y2="0.619914467830154" id="3" class="boundary"/>
+		<line x1="0" y1="1" x2="0" y2="0.121472181742457" id="4" class="boundary"/>
+		<line x1="-0.096995680072368" y1="0.194597614969012" x2="0" y2="0.121472181742457" id="5" class="boundary"/>
+		<line x1="1" y1="0.619914467830154" x2="0" y2="0.121472181742457" id="6" class="valley"/>
 	</g>
 	<g>
-		<line y1="0.15" x2="0.85" y2="1" class="valley"/>
+		<line x1="0.36726863957084144" y1="0.3045344020584632" x2="0" y2="0.7235657611274742" class="valley"/>
 		<g>
-			<path d="M 0.010939796589275227,0.9563500188936435 C 0.08647819501069405,0.5863139189657969 0.35696159092837065,0.2911483248903919 0.7190115136512559,0.18366521764912774" style="fill:none;stroke:#000;stroke-width:0.02"/>
-			<polygon points="0.7274802737825112,0.21762519559139473 0.7105427535200006,0.14970523970686075 0.8063371712170853,0.1618884058830426 " style="stroke:none;fill:#000"/>
+			<path d="M 0.0389003807403948,0.3601482669478004 C 0.16659929922438882,0.36838789929245563 0.2781842581228534,0.44552508678576835 0.3310076029876842,0.5620780771397185" style="fill:none;stroke:#000;stroke-width:0.017570556365150862"/>
+			<polygon points="0.3017315094675258,0.5714790866242407 0.36028369650784264,0.5526770676551962 0.35518162737645576,0.6373594604772687 " style="stroke:none;fill:#000"/>
 		</g>
 	</g>
 </svg>
@@ -323,27 +335,72 @@ svg.header.foldedForm.copy .faces .back { fill: black;}
 
 <div class="step">
   <h3 class="number">3</h3>
-  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="step foldedForm" width="500px" height="500px" viewBox="-0.15 -0.15 1.3 1.3">
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="singleModel foldedForm diagrams step" width="500px" height="500px" viewBox="-0.15 0.154534402058461 1.300000000000004 0.995465597941539">
 	<style type="text/css"/>
 	<g class="boundaries">
-		<polygon points="0,0 0.5,0 0.5,0.5 1,0.5 1,1 0.85,1 0.85,0.15 0,0.15 " class="boundary"/>
+		<polygon points="1.000000000000004,0.999999999999985 4e-15,1 0,0.723565761127474 0.596897526270099,0.644635276083365 0.537118655746637,0.750380146295643 0.162241793283795,0.538457663640728 0.504997567909248,0.993098791790018 0.999999999999996,0.619914467830144 " class="boundary"/>
 	</g>
 	<g class="faces">
-		<polygon points="0,0.15 0,0 0.5,0 1,0.5 1,1 0.85,1 " id="1" class="front"/>
-		<polygon points="0.5,0 0.5,0.5 1,0.5 " id="0" class="back"/>
-		<polygon points="0.85,1 0.85,0.15 0,0.15 " id="2" class="back"/>
+		<polygon points="0.367268639570837,0.304534402058461 0.999999999999996,0.619914467830144 1.000000000000004,0.999999999999985 4e-15,1 0,0.723565761127474 " id="3" class="front"/>
+		<polygon points="0.162241793283795,0.538457663640728 0.504997567909248,0.993098791790018 0.999999999999996,0.619914467830144 0.367268639570837,0.304534402058461 " id="0" class="back"/>
+		<polygon points="0.367268639570837,0.304534402058461 0.596897526270099,0.644635276083365 0.537118655746637,0.750380146295643 0.162241793283795,0.538457663640728 " id="1" class="front"/>
+		<polygon points="0,0.723565761127474 0.596897526270099,0.644635276083365 0.367268639570837,0.304534402058461 " id="2" class="back"/>
 	</g>
 	<g class="creases">
-		<line x2="0.5" id="0" class="boundary"/>
-		<line x1="0.5" y1="0.5" x2="0.5" id="1" class="boundary"/>
-		<line x1="0.5" y1="0.5" x2="1" y2="0.5" id="2" class="boundary"/>
-		<line x1="1" y1="1" x2="1" y2="0.5" id="3" class="boundary"/>
-		<line x1="0.5" x2="1" y2="0.5" id="4" class="valley"/>
-		<line x1="1" y1="1" x2="0.85" y2="1" id="5" class="boundary"/>
-		<line x1="0.85" y1="0.15" x2="0.85" y2="1" id="6" class="boundary"/>
-		<line y2="0.15" id="7" class="boundary"/>
-		<line x1="0.85" y1="0.15" y2="0.15" id="8" class="boundary"/>
-		<line x1="0.85" y1="1" y2="0.15" id="9" class="valley"/>
+		<line x1="1.000000000000004" y1="0.999999999999985" x2="4e-15" y2="1" id="0" class="boundary"/>
+		<line x1="0.504997567909248" y1="0.993098791790018" x2="0.999999999999996" y2="0.619914467830144" id="1" class="boundary"/>
+		<line x1="1.000000000000004" y1="0.999999999999985" x2="0.999999999999996" y2="0.619914467830144" id="2" class="boundary"/>
+		<line x1="0.537118655746637" y1="0.750380146295643" x2="0.596897526270099" y2="0.644635276083365" id="3" class="boundary"/>
+		<line x1="0.537118655746637" y1="0.750380146295643" x2="0.162241793283795" y2="0.538457663640728" id="4" class="boundary"/>
+		<line x1="0.504997567909248" y1="0.993098791790018" x2="0.162241793283795" y2="0.538457663640728" id="5" class="boundary"/>
+		<line x1="0.999999999999996" y1="0.619914467830144" x2="0.367268639570837" y2="0.304534402058461" id="6" class="valley"/>
+		<line x1="0.596897526270099" y1="0.644635276083365" x2="0.367268639570837" y2="0.304534402058461" id="7" class="valley"/>
+		<line x1="0.162241793283795" y1="0.538457663640728" x2="0.367268639570837" y2="0.304534402058461" id="8" class="mountain"/>
+		<line x1="4e-15" y1="1" x2="0" y2="0.723565761127474" id="9" class="boundary"/>
+		<line x1="0.596897526270099" y1="0.644635276083365" x2="0" y2="0.723565761127474" id="10" class="boundary"/>
+		<line x1="0.367268639570837" y1="0.304534402058461" x2="0" y2="0.723565761127474" id="11" class="valley"/>
+	</g>
+	<g>
+		<line x1="-2.2279190858867525e-15" y1="0.7772080914113247" x2="0.22279186957032737" y2="0.9999999999999978" class="valley"/>
+		<g>
+			<path d="M 0.00759034689727026,0.9696384676368237 C 0.014487665663525173,0.8942024796999526 0.06190034461802789,0.8293926521474609 0.13170730751115173,0.7999792332062171" style="fill:none;stroke:#000;stroke-width:0.01390931195883078"/>
+			<polygon points="0.137610936865384,0.8235937594115017 0.12580367815691945,0.7763647070009325 0.19243037489616913,0.7847984720096198 " style="stroke:none;fill:#000"/>
+		</g>
+	</g>
+</svg>
+  <p>valley fold</p>
+</div>
+
+<div class="step">
+  <h3 class="number">4</h3>
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="singleModel foldedForm diagrams step header" width="500px" height="500px" viewBox="-0.150000000000001 0.154534402058463 1.3 0.995465597941533">
+	<style type="text/css"/>
+	<g class="boundaries">
+		<polygon points="0.50499756790925,0.99309879179002 0.999999999999998,0.619914467830148 0.999999999999999,0.999999999999994 0.222791869570327,0.999999999999996 0.222791908588671,0.777208130429673 -1e-15,0.777208091411322 3e-15,0.723565761127475 0.596897526270102,0.644635276083367 0.537118655746639,0.750380146295645 0.162241793283799,0.538457663640729 " class="boundary"/>
+	</g>
+	<g class="faces">
+		<polygon points="-1e-15,0.777208091411322 3e-15,0.723565761127475 0.367268639570841,0.304534402058463 0.999999999999998,0.619914467830148 0.999999999999999,0.999999999999994 0.222791869570327,0.999999999999996 " id="3" class="front"/>
+		<polygon points="0.162241793283799,0.538457663640729 0.50499756790925,0.99309879179002 0.999999999999998,0.619914467830148 0.367268639570841,0.304534402058463 " id="0" class="back"/>
+		<polygon points="0.367268639570841,0.304534402058463 0.596897526270102,0.644635276083367 0.537118655746639,0.750380146295645 0.162241793283799,0.538457663640729 " id="1" class="front"/>
+		<polygon points="3e-15,0.723565761127475 0.596897526270102,0.644635276083367 0.367268639570841,0.304534402058463 " id="2" class="back"/>
+		<polygon points="0.222791869570327,0.999999999999996 0.222791908588671,0.777208130429673 -1e-15,0.777208091411322 " id="4" class="back"/>
+	</g>
+	<g class="creases">
+		<line x1="0.50499756790925" y1="0.99309879179002" x2="0.999999999999998" y2="0.619914467830148" id="0" class="boundary"/>
+		<line x1="0.999999999999999" y1="0.999999999999994" x2="0.999999999999998" y2="0.619914467830148" id="1" class="boundary"/>
+		<line x1="0.537118655746639" y1="0.750380146295645" x2="0.596897526270102" y2="0.644635276083367" id="2" class="boundary"/>
+		<line x1="0.537118655746639" y1="0.750380146295645" x2="0.162241793283799" y2="0.538457663640729" id="3" class="boundary"/>
+		<line x1="0.50499756790925" y1="0.99309879179002" x2="0.162241793283799" y2="0.538457663640729" id="4" class="boundary"/>
+		<line x1="0.999999999999998" y1="0.619914467830148" x2="0.367268639570841" y2="0.304534402058463" id="5" class="valley"/>
+		<line x1="0.596897526270102" y1="0.644635276083367" x2="0.367268639570841" y2="0.304534402058463" id="6" class="valley"/>
+		<line x1="0.162241793283799" y1="0.538457663640729" x2="0.367268639570841" y2="0.304534402058463" id="7" class="mountain"/>
+		<line x1="0.596897526270102" y1="0.644635276083367" x2="3e-15" y2="0.723565761127475" id="8" class="boundary"/>
+		<line x1="0.367268639570841" y1="0.304534402058463" x2="3e-15" y2="0.723565761127475" id="9" class="valley"/>
+		<line x1="0.999999999999999" y1="0.999999999999994" x2="0.222791869570327" y2="0.999999999999996" id="10" class="boundary"/>
+		<line x1="0.222791908588671" y1="0.777208130429673" x2="0.222791869570327" y2="0.999999999999996" id="11" class="boundary"/>
+		<line x1="0.222791908588671" y1="0.777208130429673" x2="-1e-15" y2="0.777208091411322" id="12" class="boundary"/>
+		<line x1="3e-15" y1="0.723565761127475" x2="-1e-15" y2="0.777208091411322" id="13" class="boundary"/>
+		<line x1="0.222791869570327" y1="0.999999999999996" x2="-1e-15" y2="0.777208091411322" id="14" class="valley"/>
 	</g>
 	<g/>
 </svg>

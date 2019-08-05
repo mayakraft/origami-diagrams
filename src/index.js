@@ -1,10 +1,7 @@
-import defaultPageStyle from "./css/montserrat.css";
-// import defaultCPStyle from "./css/cp.css";
-import BuildPage from "./build-page";
+// import defaultPageStyle from "./css/montserrat.css";
+import defaultPageStyle from "./css/avenir.css";
 
-// const diagramMaker = Object.create(null);
-// diagramMaker
-// export default Object.freeze(diagramMaker);
+import BuildPage from "./build-page";
 
 const DiagramMaker = function (fold_file, options = {}) {
   if (fold_file.length === 0) { return ""; }

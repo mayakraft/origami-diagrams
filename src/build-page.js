@@ -3,67 +3,65 @@
  * each fold object should contain diagram frames (see: readme)
  */
 
-import FOLD_SVG from "../include/fold-svg";
-import { bounding_rect } from "./graph";
+import DrawFOLD from "../include/fold-draw";
+import {
+  get_file_value,
+  add_frame_class,
+  bounding_rect,
+  final_frame_of_class,
+  clone
+} from "./helpers";
 
 const buildPage = function (fold, options) {
   // take care of options.shadows
-  const fold_file = JSON.parse(JSON.stringify(fold));
+  const fold_file = clone(fold);
 
-  // make SVGs of each step, including diagramming fold and arrows
-  const steps = fold_file.file_frames.filter(frame => frame.frame_classes.includes("diagrams"));
-  const finalCP = fold_file.file_frames
-    .filter(f => f.frame_classes.includes("final")
-      && f.frame_classes.includes("creasePattern")).shift();
-  const finalFoldedForm = fold_file.file_frames
-    .filter(f => f.frame_classes.includes("final")
-      && f.frame_classes.includes("foldedForm")).shift();
-  steps.filter(s => s.file_classes == null)
-    .forEach((s) => { s.file_classes = []; });
-  if (finalCP.file_classes == null) { finalCP.file_classes = []; }
-  if (finalFoldedForm.file_classes == null) {
-    finalFoldedForm.file_classes = [];
-  }
-  steps.forEach(s => s.file_classes.push("step"));
-  finalCP.file_classes.push("header");
-  finalFoldedForm.file_classes.push("header");
+  // pull out the parts which will become the steps SVG and header SVGs
+  const steps = fold_file.file_frames
+    .filter(frame => frame.frame_classes.includes("diagrams"));
+  const finalCP = final_frame_of_class(fold_file, "creasePattern");
+  const finalFoldedForm = final_frame_of_class(fold_file, "foldedForm");
 
-
-  // const finishedFormGraph = flatten_frame(steps[steps.length - 1], 1);
-  // console.log("finishedFormGraph", finishedFormGraph);
-  const finishedFormRect = bounding_rect(finalFoldedForm);
-  // console.log("finishedFormRect", finishedFormRect);
-  const invVMax = 1.0 - (finishedFormRect[2] > finishedFormRect[3]
-    ? finishedFormRect[2] : finishedFormRect[3]);
-  // console.log("invVMax", invVMax);
+  steps.forEach(s => add_frame_class(s, "step"));
+  add_frame_class(finalCP, "header");
+  add_frame_class(finalFoldedForm, "header");
 
   let fold_time = Math.floor(steps.length / 4);
   if (fold_time === 0) { fold_time = 1; }
 
+  const foldedFormBounds = bounding_rect(finalFoldedForm);
+  const size_ratio_float = (foldedFormBounds[2] > foldedFormBounds[3]
+    ? foldedFormBounds[2] : foldedFormBounds[3]);
+  const size_ratio = `1 : ${size_ratio_float === 1
+    ? size_ratio_float
+    : size_ratio_float.toFixed(2)}`;
 
   // build SVGs, the sequence, and 2 for the header the CP and folded form
   const sequenceSVGs = steps
-    .map(cp => FOLD_SVG.toSVG(cp, {
+    .map(cp => DrawFOLD.svg(cp, {
       inlineStyle: false,
       diagram: true,
-      frame: 1,
       padding: 0.15
     }));
-  const cpSVG = FOLD_SVG.toSVG(finalCP, {
+  const cpSVG = DrawFOLD.svg(finalCP, {
     inlineStyle: false,
     diagram: false,
     padding: 0.02
   });
-  const finalSVG = FOLD_SVG.toSVG(finalFoldedForm, {
+  const finalSVG = DrawFOLD.svg(finalFoldedForm, {
     inlineStyle: false,
     diagram: false,
-    padding: 0.02 + invVMax / 2
+    padding: 0.02
   });
-  finalFoldedForm.file_classes.push("copy");
-  const finalSVGCopy = FOLD_SVG.toSVG(finalFoldedForm, {
+  finalFoldedForm.frame_classes.push("scaled");
+  const finalSVGScaled = DrawFOLD.svg(finalFoldedForm, {
     inlineStyle: false,
     diagram: false,
-    padding: 0.02 + invVMax / 2
+    // padding: 0.02 + invVMax / 2
+    viewBox: [
+      foldedFormBounds[0],
+      foldedFormBounds[1] - (1 - foldedFormBounds[3]),
+      1, 1]
   });
 
   // get the written instructions (in english)
@@ -96,11 +94,13 @@ ${options.style}
     <div class="header">
       ${cpSVG}
       ${finalSVG}
-      ${finalSVGCopy}
-      <h1 class="title">Origami</h1>
-      <p class="author">by _____________</p>
+      ${finalSVGScaled}
+      <h1 class="title">${get_file_value(fold_file, "title")}</h1>
+      <p class="author">designed by ${get_file_value(fold_file, "author")}</p>
+      <p class="description">${get_file_value(fold_file, "description")}</p>
+      <p class="size-ratio">ratio ${size_ratio}</p>
       <p class="fold-time">fold time<br>${fold_time} ${(fold_time === 1 ? "minute" : "minutes")}</p>
-      <p class="attribution small">RabbitEar.org</p>
+      <p class="attribution small">rabbitEar.org</p>
     </div>
     ${sequenceHTML}
   </div>
